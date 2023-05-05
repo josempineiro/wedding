@@ -1,7 +1,6 @@
 import { Auth } from "@supabase/auth-ui-react";
 import { ThemeSupa } from "@supabase/auth-ui-shared";
 import { useSession, useSupabaseClient } from "@supabase/auth-helpers-react";
-import Dashboard from "@/components/Dashboard";
 
 const LogoutButton = () => {
   const supabase = useSupabaseClient();

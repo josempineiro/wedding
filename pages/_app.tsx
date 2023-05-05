@@ -2,17 +2,9 @@ import { useState } from "react";
 import type { AppProps } from "next/app";
 import { createBrowserSupabaseClient } from "@supabase/auth-helpers-nextjs";
 import { SessionContextProvider } from "@supabase/auth-helpers-react";
-import { QueryClient, QueryClientProvider } from "react-query";
 import Layout from "@/components/Layout";
+import { WeddingApplicationProvider } from "@/components/wedding/application/WeddingApplication";
 import "@/styles/globals.css";
-
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      refetchOnWindowFocus: false, // default: true
-    },
-  },
-});
 
 function App({ Component, pageProps }: AppProps) {
   const [supabase] = useState(() =>
@@ -21,18 +13,17 @@ function App({ Component, pageProps }: AppProps) {
       supabaseKey: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
     })
   );
-
   return (
-    <QueryClientProvider client={queryClient}>
-      <SessionContextProvider
-        supabaseClient={supabase}
-        initialSession={pageProps.initialSession}
-      >
+    <SessionContextProvider
+      supabaseClient={supabase}
+      initialSession={pageProps.initialSession}
+    >
+      <WeddingApplicationProvider>
         <Layout>
           <Component {...pageProps} />
         </Layout>
-      </SessionContextProvider>
-    </QueryClientProvider>
+      </WeddingApplicationProvider>
+    </SessionContextProvider>
   );
 }
 
