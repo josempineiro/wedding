@@ -1,6 +1,6 @@
 import { Guest } from "@/domain/wedding/entities/Guest";
-import { useQueryUseCase } from "@/domain/core/hooks/useQueryUseCase";
-import { useWeddingApplication } from "@/hooks/application/useWeddingApplication";
+import { useQueryUseCase } from "@/hooks/core/use-cases/useQueryUseCase";
+import { useWeddingApplication } from "@/hooks/wedding/application/useWeddingApplication";
 
 export const useGuests = () => {
   const weddingApplication = useWeddingApplication();

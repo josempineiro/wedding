@@ -1,8 +1,8 @@
 import { Guest } from "@/domain/wedding/entities/Guest";
-import { useMutationUseCase } from "@/domain/core/hooks/useMutationUseCase";
-import { useWeddingApplication } from "@/hooks/application/useWeddingApplication";
+import { useMutationUseCase } from "@/hooks/core/use-cases/useMutationUseCase";
+import { useWeddingApplication } from "@/hooks/wedding/application/useWeddingApplication";
 
-export function useAddGuest() {
+export function useDeleteGuest() {
   const weddingApplication = useWeddingApplication();
   return useMutationUseCase<Guest, Guest, Array<Guest>>({
     useCase: weddingApplication.domain.useCases.addGuest,

@@ -19,7 +19,7 @@ interface CreateGuestParams {
   weddingId: string;
   email?: string;
   table?: Table;
-  createdAt: Date;
+  createdAt?: Date;
 }
 
 export class Guest extends Entity<GuestId> {
@@ -49,7 +49,8 @@ export class Guest extends Entity<GuestId> {
     name,
     weddingId,
     email = "",
-    table,
+    table = undefined,
+    createdAt = new Date(),
   }: CreateGuestParams): Guest {
     return new Guest(id, name, weddingId, email, new Date(), table);
   }
