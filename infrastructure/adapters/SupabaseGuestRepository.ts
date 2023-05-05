@@ -68,7 +68,6 @@ export class SupabaseGuestRepository implements GuestRepository {
     if (error) {
       throw error;
     }
-    debugger;
     return data.map(this.fromRowToEntity);
   }
   public async findByName(name: string): Promise<Guest[]> {
