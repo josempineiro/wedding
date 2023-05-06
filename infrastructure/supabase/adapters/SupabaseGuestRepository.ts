@@ -44,7 +44,7 @@ export class SupabaseGuestRepository
   public async save(guest: Guest): Promise<Guest> {
     const { data, error } = await this.supabase
       .from("guest")
-      .insert([this.fromEntityToRow(guest)])
+      .upsert([this.fromEntityToRow(guest)])
       .select(`id, name, email, created_at, wedding_id`)
       .single();
     if (error) {
