@@ -49,7 +49,7 @@ export class SupabaseGuestRepository implements GuestRepository {
 
   public async delete(guest: Guest): Promise<void> {
     const { error } = await this.supabase
-      .from("countries")
+      .from("guest")
       .delete()
       .eq("id", guest.getId());
     if (error) {
