@@ -3,51 +3,61 @@ import { Guest } from "@/domain/wedding/entities/Guest";
 import { DeleteGuestButton } from "@/components/wedding/guests/DeleteGuestButton";
 import { UpdateGuestButton } from "@/components/wedding/guests/UpdateGuestButton";
 import { Button } from "@/components/core/buttons/Button";
+import { Input } from "@/components/core/forms/Input";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUserMinus, faPen } from "@fortawesome/free-solid-svg-icons";
 
 export function GuestsListItem({ guest }: { guest: Guest }) {
-  const [editionMode, setEditionMode] = useState<boolean>(false);
+  const [editedGuest, setEditedGuest] = useState<Guest | undefined>(undefined);
   const handleUpdate = () => {
-    console.log("update guest", guest);
-    if (editionMode === false) {
-      setEditionMode(true);
-    } else {
-      setEditionMode(false);
-    }
+    setEditedGuest(guest.clone<Guest>());
+  };
+  const handleDiscard = () => {
+    setEditedGuest(undefined);
+  };
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
   };
   return (
-    <li key={guest.id}>
-      {editionMode ? (
-        <form>
-          <input
+    <li className="p-2" key={guest.id}>
+      {editedGuest ? (
+        <form className="flex flex-row w-full justify-between gap-4">
+          <Input<string>
             type="text"
             name="name"
             defaultValue={guest.name}
-            onChange={(event) => {
-              guest.set({
-                name: event.target.value,
-              });
+            onChange={(name) => {
+              setEditedGuest(editedGuest.set<Guest>({ name }));
             }}
           />
-          <input
+          <Input<string>
             type="email"
             name="email"
             defaultValue={guest.email}
-            onChange={(event) => {
-              guest.set({
-                email: event.target.value,
-              });
+            onChange={(email) => {
+              setEditedGuest(editedGuest.set<Guest>({ email }));
             }}
           />
-          <UpdateGuestButton guest={guest} onClick={handleUpdate}>
+          <Button type="button" onClick={handleDiscard}>
+            Discard
+          </Button>
+          <UpdateGuestButton guest={editedGuest} onClick={handleUpdate}>
             {"Save"}
           </UpdateGuestButton>
         </form>
       ) : (
-        <>
-          {guest.name} - {guest.email}
-          <DeleteGuestButton guest={guest} />
-          <Button onClick={handleUpdate}>Update</Button>
-        </>
+        <div className="flex flex-row gap-4">
+          <div className="flex-1 flex justify-between">
+            <span>{guest.name}</span>
+            <span className="opacity-20">{guest.email}</span>
+          </div>
+          <DeleteGuestButton guest={guest}>
+            <FontAwesomeIcon icon={faUserMinus} />
+          </DeleteGuestButton>
+          <Button onClick={handleUpdate}>
+            <FontAwesomeIcon icon={faPen} />
+          </Button>
+        </div>
       )}
     </li>
   );

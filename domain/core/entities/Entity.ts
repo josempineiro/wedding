@@ -13,8 +13,9 @@ export abstract class Entity<TId = string> implements IEntity<TId> {
     return this.id;
   }
 
-  set(obj: any): Entity<TId> {
-    return Object.assign(this, obj);
+  set<T extends Entity<TId>>(obj: any): T {
+    Object.assign(this, obj);
+    return this as unknown as T;
   }
 
   public equals(obj?: Entity<TId>): boolean {
@@ -26,5 +27,9 @@ export abstract class Entity<TId = string> implements IEntity<TId> {
       return true;
     }
     return this.id === obj.id;
+  }
+
+  public clone<T extends Entity<TId>>(): T {
+    return Object.assign(Object.create(this), this) as T;
   }
 }

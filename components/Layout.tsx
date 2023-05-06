@@ -15,7 +15,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
   const session = useSession();
   const supabase = useSupabaseClient();
   return (
-    <div className="container" style={{ padding: "50px 0 100px 0" }}>
+    <div className="container mx-auto pt-20 pb-40">
       {!session ? (
         <Auth
           providers={[]}

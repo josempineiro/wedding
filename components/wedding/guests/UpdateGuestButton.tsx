@@ -1,10 +1,11 @@
 import { Guest } from "@/domain/wedding/entities/Guest";
-import { Button } from "@/components/core/buttons/Button";
+import { Button, type ButtonProps } from "@/components/core/buttons/Button";
 import { useUpdateGuest } from "@/hooks/wedding/use-cases/useUpdateGuest";
 
-interface Props extends React.HTMLProps<HTMLButtonElement> {
+interface Props extends ButtonProps {
   guest: Guest;
 }
+
 export const UpdateGuestButton = ({
   guest,
   onClick,

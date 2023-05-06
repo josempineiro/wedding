@@ -1,8 +1,24 @@
+import { useRef } from "react";
 import { Guest } from "@/domain/wedding/entities/Guest";
 import { useAddGuest } from "@/hooks/wedding/use-cases/useAddGuest";
+import { Input } from "@/components/core/forms/Input";
+
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUserPlus, faPen } from "@fortawesome/free-solid-svg-icons";
 
 function GuestCreationForm() {
-  const { mutate: addGuest, isLoading } = useAddGuest();
+  const formRef = useRef<HTMLFormElement>(null);
+  const nameInputRef = useRef<HTMLInputElement>(null);
+  const { mutate: addGuest, isLoading } = useAddGuest({
+    onSuccess: () => {
+      if (formRef.current) {
+        formRef.current.reset();
+      }
+      if (nameInputRef.current) {
+        nameInputRef.current.focus();
+      }
+    },
+  });
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -17,19 +33,29 @@ function GuestCreationForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <label>
-        name:
-        <input type="text" name="name" required />
-      </label>
-      <br />
-      <label>
-        e-mail:
-        <input type="email" name="email" />
-      </label>
-      <br />
+    <form
+      onSubmit={handleSubmit}
+      ref={formRef}
+      className="flex flex-row w-full justify-between gap-4 p-2"
+    >
+      <div className="flex-1 flex justify-between">
+        <Input<string>
+          type="text"
+          name="name"
+          placeholder="Name"
+          required
+          autoFocus
+          ref={nameInputRef}
+        />
+        <Input<string>
+          type="email"
+          name="email"
+          placeholder="e-mail"
+          className="text-right"
+        />
+      </div>
       <button disabled={isLoading} type="submit">
-        {"Add"}
+        <FontAwesomeIcon icon={faUserPlus} />
       </button>
     </form>
   );

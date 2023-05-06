@@ -4,7 +4,7 @@ import { GuestsListItem } from "@/components/wedding/guests/GuestsListItem";
 
 export default function GuestsList({ guests }: { guests: Array<Guest> }) {
   return (
-    <ul>
+    <ul className="w-full">
       {guests.map((guest) => (
         <GuestsListItem key={guest.id} guest={guest} />
       ))}

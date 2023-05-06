@@ -4,7 +4,7 @@ import { useWeddingApplication } from "@/hooks/wedding/application/useWeddingApp
 
 export function useDeleteGuest() {
   const weddingApplication = useWeddingApplication();
-  return useMutationUseCase<Guest, Guest, Array<Guest>>({
+  return useMutationUseCase<Guest, void, Array<Guest>>({
     useCase: weddingApplication.domain.useCases.deleteGuest,
   });
 }

@@ -1,12 +1,10 @@
 import React from "react";
 
-export const Button = ({
-  children,
-  ...props
-}: React.HTMLProps<HTMLButtonElement>) => {
-  return (
-    <button type="button" {...props}>
-      {children}
-    </button>
-  );
+export interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
+  children: React.ReactNode;
+  type?: "button" | "submit" | "reset" | undefined;
+}
+
+export const Button = ({ children, ...props }: ButtonProps) => {
+  return <button {...props}>{children}</button>;
 };

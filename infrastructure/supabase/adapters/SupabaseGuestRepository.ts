@@ -70,7 +70,9 @@ export class SupabaseGuestRepository
     return this.fromRowToEntity(data);
   }
   public async findAll(): Promise<Guest[]> {
-    const { data, error } = await this.select();
+    const { data, error } = await this.select().order("name", {
+      ascending: true,
+    });
     if (error) {
       throw error;
     }
