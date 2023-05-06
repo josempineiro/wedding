@@ -13,6 +13,10 @@ export abstract class Entity<TId = string> implements IEntity<TId> {
     return this.id;
   }
 
+  set(obj: any): Entity<TId> {
+    return Object.assign(this, obj);
+  }
+
   public equals(obj?: Entity<TId>): boolean {
     if (obj == null || obj == undefined) {
       return false;

@@ -2,7 +2,11 @@ import { Guest } from "@/domain/wedding/entities/Guest";
 import { GuestRepository } from "@/domain/wedding/repositories/GuestRepository";
 import { MutationUseCase } from "@/domain/core/use-cases/MutationUseCase";
 
-export class AddGuestUseCase
+export interface UpdateGuestParams {
+  name: string;
+  email: string;
+}
+export class UpdateGuestUseCase
   implements MutationUseCase<Guest, Guest, Array<Guest>>
 {
   private guestRepository: GuestRepository;
@@ -14,19 +18,24 @@ export class AddGuestUseCase
   }
 
   public optimisticExecute(
-    guest: Guest,
+    updatedGuest: Guest,
     guests: Array<Guest> | undefined
   ): Array<Guest> {
     if (guests) {
-      return [guest, ...guests];
+      return guests.map((guest) => {
+        if (guest.equals(updatedGuest)) {
+          return updatedGuest;
+        }
+        return guest;
+      });
     }
-    return [guest];
+    return [updatedGuest];
   }
 
   getId(): string {
     return "guests";
   }
   get name(): string {
-    return "Add Guest";
+    return "Update Guest";
   }
 }
