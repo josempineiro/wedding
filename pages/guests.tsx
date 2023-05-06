@@ -10,7 +10,14 @@ export default function Guests() {
       <h1>Guests</h1>
       <GuestCreationForm />
       {isLoading && <p>Loading ...</p>}
-      {data && <GuestsList guests={data} />}
+      {data && (
+        <>
+          <div>
+            <p>Total: {data.length}</p>
+          </div>
+          <GuestsList guests={data} />
+        </>
+      )}
     </main>
   );
 }

@@ -22,7 +22,12 @@ body {
 }
 
 html,
-body,
-#__next {
+body {
   height: 100%;
+}
+html {
+  overflow: hidden;
+}
+body {
+  overflow: scroll;
 }
