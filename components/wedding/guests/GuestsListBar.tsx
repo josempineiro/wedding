@@ -1,4 +1,4 @@
-import { StickyBar } from "@/components/core/content/sticky-bar/StickyBar";
+import { Bar } from "@/components/core/content/bar/Bar";
 import { useList } from "@/components/core/content/list/ListProvider";
 import { Guest, GuestId } from "@/domain/wedding/entities/Guest";
 import { DeleteGuestsButton } from "@/components/wedding/guests/DeleteGuestsButton";
@@ -23,7 +23,7 @@ export function GuestsListBar({ guests }: { guests: Guest[] }) {
   };
 
   return (
-    <StickyBar position="bottom">
+    <Bar position="bottom" behavior="fixed">
       <div className="w-full flex items-center justify-between">
         <div
           className="flex items-center justify-center w-8 h-8 mr-2 text-sm text-white bg-gray-500 rounded-full cursor-pointer"
@@ -36,6 +36,6 @@ export function GuestsListBar({ guests }: { guests: Guest[] }) {
           <FontAwesomeIcon icon={faUserMinus} />
         </DeleteGuestsButton>
       </div>
-    </StickyBar>
+    </Bar>
   );
 }

@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import { Guest } from "@/domain/wedding/entities/Guest";
 import { useAddGuest } from "@/hooks/wedding/use-cases/useAddGuest";
-import { Input } from "@/components/core/forms/Input";
+import { TextField } from "@/components/core/forms/TextField";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserPlus } from "@fortawesome/free-solid-svg-icons";
@@ -39,18 +39,20 @@ function GuestCreationForm() {
       className="flex flex-row w-full justify-between gap-4 p-2"
     >
       <div className="flex-1 flex justify-between">
-        <Input<string>
+        <TextField
+          label="Name"
           type="text"
           name="name"
-          placeholder="Name"
+          placeholder="Write a name"
           required
           autoFocus
-          ref={nameInputRef}
+          inputRef={nameInputRef}
         />
-        <Input<string>
+        <TextField
           type="email"
           name="email"
-          placeholder="e-mail"
+          label="Email"
+          placeholder="Write an email"
           className="text-right"
         />
       </div>
