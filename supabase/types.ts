@@ -15,13 +15,15 @@ export interface Database {
           email: string | null
           id: string
           name: string
+          tags: string
           wedding_id: string
         }
         Insert: {
           created_at?: string
           email?: string | null
-          id?: string
+          id: string
           name: string
+          tags?: string
           wedding_id: string
         }
         Update: {
@@ -29,6 +31,7 @@ export interface Database {
           email?: string | null
           id?: string
           name?: string
+          tags?: string
           wedding_id?: string
         }
       }
