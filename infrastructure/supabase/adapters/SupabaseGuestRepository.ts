@@ -7,7 +7,7 @@ import { SupabaseRepository } from "@/infrastructure/supabase/repositories/Supab
 
 type GuestRow = Database["public"]["Tables"]["guest"]["Row"];
 
-const fields = `id, name, email, created_at, wedding_id`;
+const fields = `id, name, email, created_at, tags, wedding_id`;
 
 export class SupabaseGuestRepository
   implements GuestRepository, SupabaseRepository<Guest, GuestRow>
@@ -25,6 +25,7 @@ export class SupabaseGuestRepository
       email: row.email || "",
       weddingId: row.wedding_id,
       createdAt: new Date(row.created_at),
+      tags: row.tags ? row.tags.split(",").filter((tag) => Boolean(tag)) : [],
     });
   }
   public fromEntityToRow(guest: Guest): GuestRow {
@@ -34,6 +35,7 @@ export class SupabaseGuestRepository
       email: guest.email || "",
       wedding_id: guest.weddingId,
       created_at: guest.createdAt.toISOString(),
+      tags: guest.tags.join(","),
     };
   }
 
@@ -45,12 +47,23 @@ export class SupabaseGuestRepository
     const { data, error } = await this.supabase
       .from("guest")
       .upsert([this.fromEntityToRow(guest)])
-      .select(`id, name, email, created_at, wedding_id`)
+      .select(fields)
       .single();
     if (error) {
       throw error;
     }
     return this.fromRowToEntity(data);
+  }
+
+  public async saveAll(guests: Guest[]): Promise<Guest[]> {
+    const { data, error } = await this.supabase
+      .from("guest")
+      .upsert(guests.map(this.fromEntityToRow))
+      .select(fields);
+    if (error) {
+      throw error;
+    }
+    return data.map(this.fromRowToEntity);
   }
 
   public async delete(guests: Guest[]): Promise<void> {
