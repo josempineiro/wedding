@@ -36,17 +36,6 @@ export const useMutationUseCase = <TVariables, TData, TOptimisticData>({
       }
       return previousData;
     },
-    onSuccess: (data, variables, previousData) => {
-      if (options.onSuccess) {
-        options.onSuccess(data, variables, previousData);
-      }
-      if (useCase.optimisticRollback) {
-        queryClient.setQueryData(
-          useCase.getId(variables),
-          useCase.optimisticRollback(variables, data, previousData)
-        );
-      }
-    },
     onError: (error, variables, previousData) => {
       if (options.onError) {
         options.onError(error, variables, previousData);
