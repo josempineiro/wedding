@@ -1,6 +1,5 @@
 import { v4 as uuidv4 } from "uuid";
 import { Entity } from "@/domain/core/entities/Entity";
-import { Table } from "@/domain/wedding/entities/Table";
 
 export type GuestId = string;
 
@@ -9,17 +8,17 @@ export interface IGuest {
   name: string;
   email: string;
   weddingId: string;
-  table?: Table;
   createdAt: Date;
+  tags?: Array<string>;
 }
 
 interface CreateGuestParams {
   id?: GuestId;
   name: string;
-  weddingId: string;
   email?: string;
-  table?: Table;
+  weddingId: string;
   createdAt?: Date;
+  tags?: Array<string>;
 }
 
 export class Guest extends Entity<GuestId> {
@@ -27,7 +26,7 @@ export class Guest extends Entity<GuestId> {
   email: string;
   weddingId: string;
   createdAt: Date;
-  table?: Table;
+  tags: Array<string>;
 
   constructor(
     id: GuestId,
@@ -35,24 +34,35 @@ export class Guest extends Entity<GuestId> {
     weddingId: string,
     email: string,
     createdAt: Date,
-    table?: Table
+    tags: Array<string>
   ) {
     super(id);
     this.name = name;
     this.email = email;
     this.weddingId = weddingId;
-    this.table = table;
     this.createdAt = createdAt;
+    this.tags = tags;
   }
   public static create({
     id = uuidv4(),
     name,
     weddingId,
     email = "",
-    table = undefined,
+    tags = [],
     createdAt = new Date(),
   }: CreateGuestParams): Guest {
-    return new Guest(id, name, weddingId, email, new Date(), table);
+    return new Guest(id, name, weddingId, email, new Date(), tags);
+  }
+
+  public tag(tag: string): void {
+    if (this.tags.includes(tag)) {
+      return;
+    }
+    this.tags.push(tag);
+  }
+
+  public untag(removedTag: string): void {
+    this.tags = this.tags.filter((tag) => tag !== removedTag);
   }
 
   public toString(): string {
