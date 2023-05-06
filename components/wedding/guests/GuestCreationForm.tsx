@@ -4,7 +4,7 @@ import { useAddGuest } from "@/hooks/wedding/use-cases/useAddGuest";
 import { Input } from "@/components/core/forms/Input";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUserPlus, faPen } from "@fortawesome/free-solid-svg-icons";
+import { faUserPlus } from "@fortawesome/free-solid-svg-icons";
 
 function GuestCreationForm() {
   const formRef = useRef<HTMLFormElement>(null);

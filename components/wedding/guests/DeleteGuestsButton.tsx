@@ -3,11 +3,12 @@ import { Button, type ButtonProps } from "@/components/core/buttons/Button";
 import { useDeleteGuests } from "@/hooks/wedding/use-cases/useDeleteGuests";
 
 interface Props extends ButtonProps {
-  guest: Guest;
+  guests: Guest[];
 }
-export const DeleteGuestButton = ({ guest, children }: Props) => {
-  const { mutate: deleteGuest } = useDeleteGuests();
-  const handleClick = () => deleteGuest(guest);
+
+export const DeleteGuestsButton = ({ children, guests }: Props) => {
+  const { mutate: deleteGuests } = useDeleteGuests();
+  const handleClick = () => deleteGuests(guests);
   return (
     <Button type="button" onClick={handleClick}>
       {children}

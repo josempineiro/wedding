@@ -25,7 +25,7 @@ function Input<T = string>(
     <input
       className={cn([
         className,
-        "text-md ring-none bg-transparent outline-none",
+        "text-md ring-none min-w-0 w-20 bg-transparent outline-none",
       ])}
       onChange={handleChange}
       {...props}

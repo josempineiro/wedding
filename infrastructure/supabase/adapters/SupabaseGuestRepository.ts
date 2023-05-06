@@ -53,15 +53,19 @@ export class SupabaseGuestRepository
     return this.fromRowToEntity(data);
   }
 
-  public async delete(guest: Guest): Promise<void> {
+  public async delete(guests: Guest[]): Promise<void> {
     const { error } = await this.supabase
       .from("guest")
       .delete()
-      .eq("id", guest.getId());
+      .in(
+        "id",
+        guests.map((guest) => guest.getId())
+      );
     if (error) {
       throw error;
     }
   }
+
   public async findById(id: string): Promise<Guest | undefined> {
     const { data, error } = await this.select().eq("id", id).single();
     if (error) {

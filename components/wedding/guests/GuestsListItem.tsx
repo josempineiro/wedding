@@ -1,14 +1,21 @@
 import { useState } from "react";
-import { Guest } from "@/domain/wedding/entities/Guest";
+import { ListItem } from "@/components/core/content/list/ListItem";
+import { Guest, GuestId } from "@/domain/wedding/entities/Guest";
 import { DeleteGuestButton } from "@/components/wedding/guests/DeleteGuestButton";
 import { UpdateGuestButton } from "@/components/wedding/guests/UpdateGuestButton";
 import { Button } from "@/components/core/buttons/Button";
 import { Input } from "@/components/core/forms/Input";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserMinus, faPen } from "@fortawesome/free-solid-svg-icons";
+import {
+  useList,
+  useListItem,
+} from "@/components/core/content/list/ListProvider";
 
 export function GuestsListItem({ guest }: { guest: Guest }) {
   const [editedGuest, setEditedGuest] = useState<Guest | undefined>(undefined);
+  const listItem = useListItem<Guest, GuestId>(guest);
+  const list = useList<Guest, GuestId>();
   const handleUpdate = () => {
     setEditedGuest(guest.clone<Guest>());
   };
@@ -19,7 +26,7 @@ export function GuestsListItem({ guest }: { guest: Guest }) {
     event.preventDefault();
   };
   return (
-    <li className="p-2" key={guest.id}>
+    <ListItem className="p-2 flex gap-2" key={guest.id} item={guest}>
       {editedGuest ? (
         <form className="flex flex-row w-full justify-between gap-4">
           <Input<string>
@@ -46,19 +53,23 @@ export function GuestsListItem({ guest }: { guest: Guest }) {
           </UpdateGuestButton>
         </form>
       ) : (
-        <div className="flex flex-row gap-4">
+        <div className="flex flex-row gap-4 w-full">
           <div className="flex-1 flex justify-between">
             <span>{guest.name}</span>
             <span className="opacity-20">{guest.email}</span>
           </div>
-          <DeleteGuestButton guest={guest}>
-            <FontAwesomeIcon icon={faUserMinus} />
-          </DeleteGuestButton>
-          <Button onClick={handleUpdate}>
-            <FontAwesomeIcon icon={faPen} />
-          </Button>
+          {list.selection.selectedIds.length === 0 && (
+            <>
+              <DeleteGuestButton guest={guest}>
+                <FontAwesomeIcon icon={faUserMinus} />
+              </DeleteGuestButton>
+              <Button onClick={handleUpdate}>
+                <FontAwesomeIcon icon={faPen} />
+              </Button>
+            </>
+          )}
         </div>
       )}
-    </li>
+    </ListItem>
   );
 }

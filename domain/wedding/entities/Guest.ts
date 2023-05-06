@@ -2,7 +2,7 @@ import { v4 as uuidv4 } from "uuid";
 import { Entity } from "@/domain/core/entities/Entity";
 import { Table } from "@/domain/wedding/entities/Table";
 
-type GuestId = string;
+export type GuestId = string;
 
 export interface IGuest {
   id: GuestId;

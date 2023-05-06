@@ -2,7 +2,7 @@ import { Application } from "@/domain/core/application/Application";
 import { GuestRepository } from "@/domain/wedding/repositories/GuestRepository";
 import { FindAllGuestUseCase } from "@/domain/wedding/use-cases/FindAllGuestsUseCase";
 import { AddGuestUseCase } from "@/domain/wedding/use-cases/AddGuestUseCase";
-import { DeleteGuestUseCase } from "@/domain/wedding/use-cases/DeleteGuestUseCase";
+import { DeleteGuestsUseCase } from "@/domain/wedding/use-cases/DeleteGuestsUseCase";
 import { UpdateGuestUseCase } from "../use-cases/UpdateGuestUseCase";
 
 export interface IWeddingApplication extends Application {
@@ -15,7 +15,7 @@ export interface IWeddingApplication extends Application {
     useCases: {
       findAllGuests: FindAllGuestUseCase;
       addGuest: AddGuestUseCase;
-      deleteGuest: DeleteGuestUseCase;
+      deleteGuests: DeleteGuestsUseCase;
     };
   };
 }
@@ -25,7 +25,7 @@ export class WeddingApplication implements IWeddingApplication {
     useCases: {
       findAllGuests: FindAllGuestUseCase;
       addGuest: AddGuestUseCase;
-      deleteGuest: DeleteGuestUseCase;
+      deleteGuests: DeleteGuestsUseCase;
       updateGuest: UpdateGuestUseCase;
     };
   };
@@ -44,7 +44,7 @@ export class WeddingApplication implements IWeddingApplication {
         addGuest: new AddGuestUseCase(
           this.infrastructure.adapters.guestRepository
         ),
-        deleteGuest: new DeleteGuestUseCase(
+        deleteGuests: new DeleteGuestsUseCase(
           this.infrastructure.adapters.guestRepository
         ),
         updateGuest: new UpdateGuestUseCase(
