@@ -6,8 +6,8 @@ interface Props extends ButtonProps {
   guest: Guest;
 }
 export const DeleteGuestButton = ({ guest, children }: Props) => {
-  const { mutate: deleteGuest } = useDeleteGuests();
-  const handleClick = () => deleteGuest(guest);
+  const { mutate: deleteGuests } = useDeleteGuests();
+  const handleClick = () => deleteGuests([guest]);
   return (
     <Button type="button" onClick={handleClick}>
       {children}
