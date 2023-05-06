@@ -7,13 +7,13 @@ declare module "react" {
   ): (props: P & React.RefAttributes<T>) => React.ReactElement | null;
 }
 
-interface Props<T>
+export interface InputProps<T>
   extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "onChange"> {
   onChange?: (value: T, event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 function Input<T = string>(
-  { className, onChange, ...props }: Props<T>,
+  { className, onChange, ...props }: InputProps<T>,
   ref: ForwardedRef<HTMLInputElement>
 ) {
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
