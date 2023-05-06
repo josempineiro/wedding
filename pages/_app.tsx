@@ -1,3 +1,4 @@
+import Head from "next/head";
 import { useState } from "react";
 import type { AppProps } from "next/app";
 import { createBrowserSupabaseClient } from "@supabase/auth-helpers-nextjs";
@@ -14,16 +15,24 @@ function App({ Component, pageProps }: AppProps) {
     })
   );
   return (
-    <SessionContextProvider
-      supabaseClient={supabase}
-      initialSession={pageProps.initialSession}
-    >
-      <WeddingApplicationProvider>
-        <Layout>
-          <Component {...pageProps} />
-        </Layout>
-      </WeddingApplicationProvider>
-    </SessionContextProvider>
+    <>
+      <Head>
+        <link
+          href="https://fonts.cdnfonts.com/css/great-vibes"
+          rel="stylesheet"
+        />
+      </Head>
+      <SessionContextProvider
+        supabaseClient={supabase}
+        initialSession={pageProps.initialSession}
+      >
+        <WeddingApplicationProvider>
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
+        </WeddingApplicationProvider>
+      </SessionContextProvider>
+    </>
   );
 }
 
