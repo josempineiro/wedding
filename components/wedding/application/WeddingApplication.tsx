@@ -1,7 +1,7 @@
 import { useMemo } from "react";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { createBrowserSupabaseClient } from "@supabase/auth-helpers-nextjs";
-import { SupabaseGuestRepository } from "@/infrastructure/adapters/SupabaseGuestRepository";
+import { SupabaseGuestRepository } from "@/infrastructure/supabase/adapters/SupabaseGuestRepository";
 import { WeddingApplication } from "@/domain/wedding/application/WeddingApplication";
 import { ApplicationProvider } from "@/components/core/application/Application";
 

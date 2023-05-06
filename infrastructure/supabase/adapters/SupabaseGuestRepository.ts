@@ -3,19 +3,22 @@ import { Guest } from "@/domain/wedding/entities/Guest";
 import { PostgrestFilterBuilder } from "@supabase/postgrest-js";
 import { SupabaseClient } from "@supabase/supabase-js";
 import { Database } from "@/supabase/types";
+import { SupabaseRepository } from "@/infrastructure/supabase/repositories/SupabaseRepository";
 
 type GuestRow = Database["public"]["Tables"]["guest"]["Row"];
 
 const fields = `id, name, email, created_at, wedding_id`;
 
-export class SupabaseGuestRepository implements GuestRepository {
-  private supabase: SupabaseClient;
+export class SupabaseGuestRepository
+  implements GuestRepository, SupabaseRepository<Guest, GuestRow>
+{
+  public supabase: SupabaseClient;
 
   constructor(supabase: SupabaseClient) {
     this.supabase = supabase;
   }
 
-  private fromRowToEntity(row: GuestRow): Guest {
+  public fromRowToEntity(row: GuestRow): Guest {
     return Guest.create({
       id: row.id,
       name: row.name,
@@ -23,6 +26,15 @@ export class SupabaseGuestRepository implements GuestRepository {
       weddingId: row.wedding_id,
       createdAt: new Date(row.created_at),
     });
+  }
+  public fromEntityToRow(guest: Guest): GuestRow {
+    return {
+      id: guest.id,
+      name: guest.name,
+      email: guest.email || "",
+      wedding_id: guest.weddingId,
+      created_at: guest.createdAt.toISOString(),
+    };
   }
 
   private select(): PostgrestFilterBuilder<any, GuestRow, GuestRow[]> {
@@ -32,13 +44,7 @@ export class SupabaseGuestRepository implements GuestRepository {
   public async save(guest: Guest): Promise<Guest> {
     const { data, error } = await this.supabase
       .from("guest")
-      .insert([
-        {
-          name: guest.name,
-          email: guest.email,
-          wedding_id: "95f2e638-0023-4316-8868-6550f9bf1db3",
-        },
-      ])
+      .insert([this.fromEntityToRow(guest)])
       .select(`id, name, email, created_at, wedding_id`)
       .single();
     if (error) {

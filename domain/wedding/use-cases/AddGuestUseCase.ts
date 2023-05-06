@@ -44,7 +44,6 @@ export class AddGuestUseCase
     guest: Guest,
     guests: Array<Guest> | undefined
   ) {
-    debugger;
     if (guests) {
       return [guest, ...guests];
     }
