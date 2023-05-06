@@ -58,7 +58,7 @@ export function GuestsListItem({ guest }: { guest: Guest }) {
             <span>{guest.name}</span>
             <span className="opacity-20">{guest.email}</span>
           </div>
-          <span className="opacity-0 group-hover:opacity-100">
+          <span className="opacity-40 group-hover:opacity-100">
             {guest.tags.map((tag) => (
               <span key={tag} className="px-2 py-1 bg-gray-200 rounded">
                 {tag}
@@ -75,7 +75,6 @@ export function GuestsListItem({ guest }: { guest: Guest }) {
               </Button>
             </>
           )}
-          a
         </div>
       )}
     </ListItem>

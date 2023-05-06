@@ -25,7 +25,7 @@ export class SupabaseGuestRepository
       email: row.email || "",
       weddingId: row.wedding_id,
       createdAt: new Date(row.created_at),
-      tags: row.tags ? row.tags.split(",").filter((tag) => Boolean(tag)) : [],
+      tags: row.tags ? row.tags.split(",") : [],
     });
   }
   public fromEntityToRow(guest: Guest): GuestRow {

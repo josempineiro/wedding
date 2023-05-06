@@ -26,12 +26,12 @@ export function GuestsListBar({ guests }: { guests: Guest[] }) {
     <StickyBar position="bottom">
       <div className="w-full flex items-center justify-between">
         <div
-          className="flex items-center justify-center w-8 h-8 mr-2 text-sm text-white bg-gray-500 rounded-full"
+          className="flex items-center justify-center w-8 h-8 mr-2 text-sm text-white bg-gray-500 rounded-full cursor-pointer"
           onClick={handleSelectAll}
         >
           {selectedGuests.length}
         </div>
-        <GuestTagger guests={guests} />
+        <GuestTagger guests={selectedGuests} />
         <DeleteGuestsButton guests={selectedGuests}>
           <FontAwesomeIcon icon={faUserMinus} />
         </DeleteGuestsButton>

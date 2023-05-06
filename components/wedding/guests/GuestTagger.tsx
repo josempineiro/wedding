@@ -17,6 +17,7 @@ export const GuestTagger: React.FC<Props> = ({ guests }) => {
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
     if (event.key === "Enter") {
       const tag = tagInputValue.trim();
+      debugger;
       tagGuests({
         guests,
         tag,

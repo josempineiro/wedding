@@ -30,6 +30,7 @@ export interface ListItemHookValue<T = any, TId = any> {
   selectable: boolean;
   selected: boolean;
   toggle: () => void;
+  list: ListContextValue<T, TId>;
 }
 
 export const ListContext = createContext<ListContextValue | undefined>(
@@ -45,11 +46,12 @@ export function useList<T, TId>(): ListContextValue<T, TId> {
 }
 
 export function useListItem<T, TId>(item: T): ListItemHookValue<T, TId> {
-  const context = useList();
+  const list = useList<T, TId>();
   return {
-    selectable: context.selection.selectable,
-    selected: context.selection.isItemSelected(item),
-    toggle: () => context.selection.toggleItem(item),
+    selectable: list.selection.selectable,
+    selected: list.selection.isItemSelected(item),
+    toggle: () => list.selection.toggleItem(item),
+    list,
   };
 }
 
