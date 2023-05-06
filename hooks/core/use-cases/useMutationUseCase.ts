@@ -4,48 +4,55 @@ import {
   UseMutationResult,
   UseMutationOptions,
 } from "react-query";
-import { MutationUseCase } from "@/domain/core/MutationUseCase";
-
-type TRollback = () => void;
+import { MutationUseCase } from "@/domain/core/use-cases/MutationUseCase";
 
 export const useMutationUseCase = <TVariables, TData, TOptimisticData>({
   useCase,
   options = {},
 }: {
   useCase: MutationUseCase<TVariables, TData, TOptimisticData>;
-  options?: UseMutationOptions<TData, unknown, TVariables, TRollback>;
+  options?: UseMutationOptions<TData, unknown, TVariables, TOptimisticData>;
   params?: TVariables;
-}): UseMutationResult<TData, unknown, TVariables, TRollback> => {
+}): UseMutationResult<TData, unknown, TVariables, TOptimisticData> => {
   const queryClient = useQueryClient();
-  return useMutation<TData, unknown, TVariables, TRollback>({
+  return useMutation<TData, unknown, TVariables, TOptimisticData>({
     ...options,
-    mutationFn: (params) => {
-      return useCase.execute(params);
+    mutationFn: (variables) => {
+      return useCase.execute(variables);
     },
-    onMutate: (params) => {
+    onMutate: (variables) => {
       if (options.onMutate) {
-        options.onMutate(params);
+        options.onMutate(variables);
       }
       const previousData = queryClient.getQueryData<TOptimisticData>(
-        useCase.getId(params)
+        useCase.getId(variables)
       );
       if (useCase.optimisticExecute) {
         queryClient.setQueryData(
-          useCase.getId(params),
-          useCase.optimisticExecute(params, previousData)
+          useCase.getId(variables),
+          useCase.optimisticExecute(variables, previousData)
         );
-        return () => {
-          queryClient.setQueryData(useCase.getId(params), previousData);
-        };
+        return previousData;
       }
-      return () => {};
+      return previousData;
     },
-    onError: (error, variables, rollback) => {
-      if (options.onError) {
-        options.onError(error, variables, rollback);
+    onSuccess: (data, variables, previousData) => {
+      if (options.onSuccess) {
+        options.onSuccess(data, variables, previousData);
       }
-      if (rollback) {
-        rollback();
+      if (useCase.optimisticRollback) {
+        queryClient.setQueryData(
+          useCase.getId(variables),
+          useCase.optimisticRollback(variables, data, previousData)
+        );
+      }
+    },
+    onError: (error, variables, previousData) => {
+      if (options.onError) {
+        options.onError(error, variables, previousData);
+      }
+      if (previousData) {
+        queryClient.setQueryData(useCase.getId(variables), previousData);
       }
     },
   });

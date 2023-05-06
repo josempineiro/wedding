@@ -39,6 +39,18 @@ export class AddGuestUseCase
     return [guest];
   }
 
+  public optimisticRollback(
+    params: AddGuestParams,
+    guest: Guest,
+    guests: Array<Guest> | undefined
+  ) {
+    debugger;
+    if (guests) {
+      return [guest, ...guests];
+    }
+    return [guest];
+  }
+
   getId(): string {
     return "guests";
   }

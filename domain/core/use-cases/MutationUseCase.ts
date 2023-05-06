@@ -6,4 +6,9 @@ export interface MutationUseCase<Params, Result, OptimisticResult = Result>
     params: Params,
     previousResult: OptimisticResult | undefined
   ) => OptimisticResult;
+  optimisticRollback?: (
+    params: Params,
+    result: Result,
+    previousResult: OptimisticResult | undefined
+  ) => void;
 }
