@@ -21,6 +21,6 @@ export abstract class Entity<TId = string> implements IEntity<TId> {
     if (this == obj) {
       return true;
     }
-    return this.id != obj.id;
+    return this.id === obj.id;
   }
 }
