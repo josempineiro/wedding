@@ -21,6 +21,8 @@ export interface ListContextValue<T = any, TId = any> {
     isItemSelected: (item: T) => boolean;
     toggleItem: (item: T) => void;
     selectedItems: Array<T>;
+    clear: () => void;
+    selectAll: () => void;
   };
 }
 
@@ -89,6 +91,8 @@ export function ListProvider<T, TId = string>({
           selectedItems,
           isItemSelected,
           toggleItem,
+          clear: () => setSelectedIds([]),
+          selectAll: () => setSelectedIds(data.map(getItemId)),
         },
       }}
     >
