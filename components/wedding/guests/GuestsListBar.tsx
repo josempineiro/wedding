@@ -22,9 +22,13 @@ export function GuestsListBar({ guests }: { guests: Guest[] }) {
     }
   };
 
+  const thereAreSelectedGuests = selectedGuests.length > 0;
+  if (!thereAreSelectedGuests) {
+    return null;
+  }
   return (
     <Bar position="bottom" behavior="fixed">
-      <div className="w-full flex items-center justify-between">
+      <div className="w-full flex items-center justify-between p-4">
         <div
           className="flex items-center justify-center w-8 h-8 mr-2 text-sm text-white bg-gray-500 rounded-full cursor-pointer"
           onClick={handleSelectAll}

@@ -24,7 +24,7 @@ export const ListItem = <T, TId>({
       onClick={handleClickItem}
       className={classNames([
         className,
-        "flex items-center justify-between px-4 py-2 text-sm text-gray-700 border-b border-gray-200",
+        "flex items-center justify-between gap-4 px-4 py-2 text-gray-700 border-b border-gray-200",
         {
           ["hover:bg-gray-100"]: selectable,
           ["bg-gray-100"]: selected,
@@ -32,7 +32,7 @@ export const ListItem = <T, TId>({
       ])}
     >
       {selectable && (
-        <span onClick={(event) => event.stopPropagation()}>
+        <span className="flex" onClick={(event) => event.stopPropagation()}>
           <input
             type="checkbox"
             checked={selected}

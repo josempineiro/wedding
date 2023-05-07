@@ -1,5 +1,5 @@
 import GuestsList from "@/components/wedding/guests/GuestsList";
-import GuestCreationForm from "@/components/wedding/guests/GuestCreationForm";
+import { CreateGuestFAButton } from "@/components/wedding/guests/CreateGuestFAButton";
 import { useGuests } from "@/hooks/wedding/use-cases/useGuests";
 
 export default function Guests() {
@@ -8,7 +8,7 @@ export default function Guests() {
   return (
     <main className={`flex flex-col items-center justify-between p-2`}>
       <h1>Guests</h1>
-      <GuestCreationForm />
+      <CreateGuestFAButton />
       {isLoading && <p>Loading ...</p>}
       {data && (
         <>

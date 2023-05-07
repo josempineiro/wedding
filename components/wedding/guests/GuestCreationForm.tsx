@@ -2,7 +2,7 @@ import { useRef } from "react";
 import { Guest } from "@/domain/wedding/entities/Guest";
 import { useAddGuest } from "@/hooks/wedding/use-cases/useAddGuest";
 import { TextField } from "@/components/core/forms/TextField";
-
+import { Button } from "@/components/core/buttons/Button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserPlus } from "@fortawesome/free-solid-svg-icons";
 
@@ -36,29 +36,27 @@ function GuestCreationForm() {
     <form
       onSubmit={handleSubmit}
       ref={formRef}
-      className="flex flex-row w-full justify-between gap-4 p-2"
+      className="flex flex-col w-full justify-between gap-4 p-2"
     >
-      <div className="flex-1 flex justify-between">
-        <TextField
-          label="Name"
-          type="text"
-          name="name"
-          placeholder="Write a name"
-          required
-          autoFocus
-          inputRef={nameInputRef}
-        />
-        <TextField
-          type="email"
-          name="email"
-          label="Email"
-          placeholder="Write an email"
-          className="text-right"
-        />
-      </div>
-      <button disabled={isLoading} type="submit">
+      <TextField
+        label="Name"
+        type="text"
+        name="name"
+        placeholder="Write a name"
+        required
+        autoFocus
+        inputRef={nameInputRef}
+      />
+      <TextField
+        type="email"
+        name="email"
+        label="Email"
+        placeholder="Write an email"
+      />
+      <Button disabled={isLoading} type="submit" variant="primary">
+        <span>Add</span>
         <FontAwesomeIcon icon={faUserPlus} />
-      </button>
+      </Button>
     </form>
   );
 }

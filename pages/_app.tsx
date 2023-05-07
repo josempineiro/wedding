@@ -21,6 +21,10 @@ function App({ Component, pageProps }: AppProps) {
           href="https://fonts.cdnfonts.com/css/great-vibes"
           rel="stylesheet"
         />
+        <link
+          href="https://fonts.cdnfonts.com/css/nunito-sans"
+          rel="stylesheet"
+        />
       </Head>
       <SessionContextProvider
         supabaseClient={supabase}

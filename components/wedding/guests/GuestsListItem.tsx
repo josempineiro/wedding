@@ -6,7 +6,12 @@ import { UpdateGuestButton } from "@/components/wedding/guests/UpdateGuestButton
 import { Button } from "@/components/core/buttons/Button";
 import { Input } from "@/components/core/forms/Input";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUserMinus, faPen } from "@fortawesome/free-solid-svg-icons";
+import {
+  faUserMinus,
+  faXmark,
+  faCheck,
+  faPen,
+} from "@fortawesome/free-solid-svg-icons";
 import {
   useList,
   useListItem,
@@ -28,7 +33,7 @@ export function GuestsListItem({ guest }: { guest: Guest }) {
   return (
     <ListItem className="p-2 flex gap-2 group" key={guest.id} item={guest}>
       {editedGuest ? (
-        <form className="flex flex-row w-full justify-between gap-4">
+        <form className="flex flex-row w-full items-center justify-between gap-4">
           <Input<string>
             type="text"
             name="name"
@@ -45,20 +50,24 @@ export function GuestsListItem({ guest }: { guest: Guest }) {
               setEditedGuest(editedGuest.set<Guest>({ email }));
             }}
           />
-          <Button type="button" onClick={handleDiscard}>
-            Discard
+          <Button size="sm" type="button" onClick={handleDiscard}>
+            <FontAwesomeIcon icon={faXmark} />
           </Button>
-          <UpdateGuestButton guest={editedGuest} onClick={handleUpdate}>
-            {"Save"}
+          <UpdateGuestButton
+            size="sm"
+            guest={editedGuest}
+            onClick={handleUpdate}
+          >
+            <FontAwesomeIcon icon={faCheck} />
           </UpdateGuestButton>
         </form>
       ) : (
         <div className="flex flex-row gap-4 w-full">
-          <div className="flex-1 flex justify-between">
+          <div className="flex-1 flex items-center justify-between">
             <span>{guest.name}</span>
             <span className="opacity-20">{guest.email}</span>
           </div>
-          <span className="opacity-40 group-hover:opacity-100">
+          <span className="opacity-40 group-hover:opacity-100 flex items-center justify-between">
             {guest.tags.map((tag) => (
               <span key={tag} className="px-2 py-1 bg-gray-200 rounded">
                 {tag}
@@ -67,10 +76,10 @@ export function GuestsListItem({ guest }: { guest: Guest }) {
           </span>
           {list.selection.selectedIds.length === 0 && (
             <>
-              <DeleteGuestButton guest={guest}>
+              <DeleteGuestButton size="sm" rounded guest={guest}>
                 <FontAwesomeIcon icon={faUserMinus} />
               </DeleteGuestButton>
-              <Button onClick={handleUpdate}>
+              <Button size="sm" rounded onClick={handleUpdate}>
                 <FontAwesomeIcon icon={faPen} />
               </Button>
             </>
