@@ -1,0 +1,73 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Tags component should render hidden tags when click in more tags 1`] = `
+<div
+  class="flex flex-wrap gap-2 items-center"
+>
+  <div
+    class="inline-flex items-center rounded-sm gap-4 px-2 py-1"
+    role="tag"
+  >
+    <span>
+      Tag 1
+    </span>
+  </div>
+  <div
+    class="inline-flex items-center rounded-sm gap-4 px-2 py-1"
+    role="tag"
+  >
+    <span>
+      Tag 2
+    </span>
+  </div>
+  <div
+    class="inline-flex items-center rounded-sm gap-4 px-2 py-1"
+    role="tag"
+  >
+    <span>
+      Tag 3
+    </span>
+  </div>
+  <div
+    class="inline-flex items-center rounded-sm gap-4 px-2 py-1"
+    role="more-tags"
+  >
+    <span>
+      Hide
+       
+    </span>
+  </div>
+</div>
+`;
+
+exports[`Tags component should render visible tags 1`] = `
+<div
+  class="flex flex-wrap gap-2 items-center"
+>
+  <div
+    class="inline-flex items-center rounded-sm gap-4 px-2 py-1"
+    role="tag"
+  >
+    <span>
+      Tag 1
+    </span>
+  </div>
+  <div
+    class="inline-flex items-center rounded-sm gap-4 px-2 py-1"
+    role="tag"
+  >
+    <span>
+      Tag 2
+    </span>
+  </div>
+  <div
+    class="inline-flex items-center rounded-sm gap-4 px-2 py-1"
+    role="more-tags"
+  >
+    <span>
+      +1 more
+       
+    </span>
+  </div>
+</div>
+`;

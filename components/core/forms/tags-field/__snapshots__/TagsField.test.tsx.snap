@@ -1,0 +1,85 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TagsField should render correctly 1`] = `
+<div>
+  <div
+    class="flex flex-col"
+  >
+    <label
+      aria-labelledby="tags"
+      class="text-sm text-gray-700 px-2"
+      for="tags"
+    >
+      Tags
+    </label>
+    <input
+      class="bg-white px-2 py-1 text-md ring-none min-w-0 w-auto bg-transparent outline-none"
+      name="tags"
+      role="textbox"
+    />
+    <div
+      class="bg-white px-2 py-1 flex flex-wrap gap-2 items-center"
+    >
+      <div
+        class="inline-flex items-center rounded-sm gap-4 px-2 py-1"
+        role="tag"
+      >
+        <span>
+          tag1
+        </span>
+        <button
+          class="flex flex-row gap-4 justify-center items-center transition-colors duration-200 ease-in-out px-2 py-1 text-sm py-2 h-8 w-8 rounded-full "
+          role="delete-tag"
+        >
+          <svg
+            aria-hidden="true"
+            class="svg-inline--fa fa-minus "
+            data-icon="minus"
+            data-prefix="fas"
+            focusable="false"
+            role="img"
+            viewBox="0 0 448 512"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M432 256c0 17.7-14.3 32-32 32L48 288c-17.7 0-32-14.3-32-32s14.3-32 32-32l352 0c17.7 0 32 14.3 32 32z"
+              fill="currentColor"
+            />
+          </svg>
+        </button>
+      </div>
+      <div
+        class="inline-flex items-center rounded-sm gap-4 px-2 py-1"
+        role="tag"
+      >
+        <span>
+          tag2
+        </span>
+        <button
+          class="flex flex-row gap-4 justify-center items-center transition-colors duration-200 ease-in-out px-2 py-1 text-sm py-2 h-8 w-8 rounded-full "
+          role="delete-tag"
+        >
+          <svg
+            aria-hidden="true"
+            class="svg-inline--fa fa-minus "
+            data-icon="minus"
+            data-prefix="fas"
+            focusable="false"
+            role="img"
+            viewBox="0 0 448 512"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M432 256c0 17.7-14.3 32-32 32L48 288c-17.7 0-32-14.3-32-32s14.3-32 32-32l352 0c17.7 0 32 14.3 32 32z"
+              fill="currentColor"
+            />
+          </svg>
+        </button>
+      </div>
+    </div>
+    <p>
+      Invalid tags
+    </p>
+  </div>
+</div>
+`;

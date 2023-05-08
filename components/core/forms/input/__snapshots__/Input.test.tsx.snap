@@ -1,0 +1,8 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Input renders correctly 1`] = `
+<input
+  class="text-md ring-none min-w-0 w-auto bg-transparent outline-none"
+  role="textbox"
+/>
+`;
