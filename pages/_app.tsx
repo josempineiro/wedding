@@ -5,6 +5,7 @@ import { createBrowserSupabaseClient } from "@supabase/auth-helpers-nextjs";
 import { SessionContextProvider } from "@supabase/auth-helpers-react";
 import Layout from "@/components/Layout";
 import { WeddingApplicationProvider } from "@/components/wedding/application/WeddingApplication";
+import { Breadcrumbs } from "@/components/core/application/Breadcrumbs";
 import "@/styles/globals.css";
 
 function App({ Component, pageProps }: AppProps) {
@@ -32,6 +33,7 @@ function App({ Component, pageProps }: AppProps) {
       >
         <WeddingApplicationProvider>
           <Layout>
+            <Breadcrumbs />
             <Component {...pageProps} />
           </Layout>
         </WeddingApplicationProvider>

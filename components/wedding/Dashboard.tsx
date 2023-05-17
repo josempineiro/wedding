@@ -17,6 +17,9 @@ const Dashboard = () => {
           <NextLink href="/guests">Guests</NextLink>
         </li>
         <li className="text-2xl p-4 py-1 underline">
+          <NextLink href="/tables">Tables</NextLink>
+        </li>
+        <li className="text-2xl p-4 py-1 underline">
           <NextLink href="/challenges">Challenges</NextLink>
         </li>
       </ul>

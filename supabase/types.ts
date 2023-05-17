@@ -38,6 +38,20 @@ export interface Database {
           wedding_id?: string
         }
       }
+      tables: {
+        Row: {
+          id: number
+          name: string
+        }
+        Insert: {
+          id?: number
+          name: string
+        }
+        Update: {
+          id?: number
+          name?: string
+        }
+      }
       wedding: {
         Row: {
           created_at: string
