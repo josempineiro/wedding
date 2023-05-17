@@ -24,7 +24,7 @@ describe("TextField", () => {
   });
 
   it("passes props to Field component", () => {
-    render(<TextField {...props} label="Test Label" error="Test Error" />);
+    render(<TextField {...props} label="Test Label" errors={["Test Error"]} />);
     expect(screen.getByText("Test Label")).toBeInTheDocument();
     expect(screen.getByText("Test Error")).toBeInTheDocument();
   });

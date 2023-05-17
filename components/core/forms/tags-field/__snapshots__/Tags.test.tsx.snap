@@ -5,34 +5,42 @@ exports[`Tags component should render hidden tags when click in more tags 1`] = 
   class="flex flex-wrap gap-2 items-center"
 >
   <div
-    class="inline-flex items-center rounded-sm gap-4 px-2 py-1"
+    class="inline-flex items-center gap-2 px-2 rounded-sm bg-primary-400 text-white cursor-default"
     role="tag"
   >
-    <span>
+    <span
+      class="text-sm"
+    >
       Tag 1
     </span>
   </div>
   <div
-    class="inline-flex items-center rounded-sm gap-4 px-2 py-1"
+    class="inline-flex items-center gap-2 px-2 rounded-sm bg-primary-400 text-white cursor-default"
     role="tag"
   >
-    <span>
+    <span
+      class="text-sm"
+    >
       Tag 2
     </span>
   </div>
   <div
-    class="inline-flex items-center rounded-sm gap-4 px-2 py-1"
+    class="inline-flex items-center gap-2 px-2 rounded-sm bg-primary-400 text-white cursor-default"
     role="tag"
   >
-    <span>
+    <span
+      class="text-sm"
+    >
       Tag 3
     </span>
   </div>
   <div
-    class="inline-flex items-center rounded-sm gap-4 px-2 py-1"
+    class="inline-flex items-center gap-2 px-2 rounded-sm bg-primary-400 text-white cursor-default"
     role="more-tags"
   >
-    <span>
+    <span
+      class="text-sm"
+    >
       Hide
        
     </span>
@@ -45,26 +53,32 @@ exports[`Tags component should render visible tags 1`] = `
   class="flex flex-wrap gap-2 items-center"
 >
   <div
-    class="inline-flex items-center rounded-sm gap-4 px-2 py-1"
+    class="inline-flex items-center gap-2 px-2 rounded-sm bg-primary-400 text-white cursor-default"
     role="tag"
   >
-    <span>
+    <span
+      class="text-sm"
+    >
       Tag 1
     </span>
   </div>
   <div
-    class="inline-flex items-center rounded-sm gap-4 px-2 py-1"
+    class="inline-flex items-center gap-2 px-2 rounded-sm bg-primary-400 text-white cursor-default"
     role="tag"
   >
-    <span>
+    <span
+      class="text-sm"
+    >
       Tag 2
     </span>
   </div>
   <div
-    class="inline-flex items-center rounded-sm gap-4 px-2 py-1"
+    class="inline-flex items-center gap-2 px-2 rounded-sm bg-primary-400 text-white cursor-default"
     role="more-tags"
   >
-    <span>
+    <span
+      class="text-sm"
+    >
       +1 more
        
     </span>

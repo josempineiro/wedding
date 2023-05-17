@@ -1,23 +1,22 @@
 import { Input, type InputProps } from "@/components/core/forms/input/Input";
 import { Field, type FieldProps } from "@/components/core/forms/field/Field";
 
-export interface TextFieldProps extends InputProps<string> {
-  label?: FieldProps["label"];
-  type?: "text" | "email" | "password";
-  error?: FieldProps["error"];
+export interface TextFieldProps
+  extends Omit<InputProps<string>, "name" | "value" | "type">,
+    Omit<FieldProps<string>, "children"> {
+  type: "text" | "email" | "password";
   inputRef?: React.Ref<HTMLInputElement>;
-  name: FieldProps["name"];
 }
 
 export function TextField({
   label,
-  error,
+  errors,
   name,
   inputRef,
   ...rest
 }: TextFieldProps) {
   return (
-    <Field error={error} label={label} name={name}>
+    <Field type="text" errors={errors} label={label} name={name}>
       <Input<string>
         ref={inputRef}
         id={name}

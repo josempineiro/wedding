@@ -8,7 +8,10 @@ declare module "react" {
 }
 
 export interface InputProps<T>
-  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "onChange"> {
+  extends Omit<
+    React.InputHTMLAttributes<HTMLInputElement>,
+    "onChange" | "children"
+  > {
   onChange: (value: T, event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
@@ -23,14 +26,14 @@ function Input<T = string>(
   };
   return (
     <input
+      ref={ref}
       role="textbox"
       className={cn([
         className,
-        "text-md ring-none min-w-0 w-auto bg-transparent outline-none",
+        "text-md font-medium ring-none min-w-0 w-auto bg-transparent outline-none",
       ])}
       onChange={handleChange}
       {...props}
-      ref={ref}
     />
   );
 }

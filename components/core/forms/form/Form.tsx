@@ -15,10 +15,10 @@ function Form(
       ref={ref}
       className={classNames([
         className,
-        "flex w-full gap-4",
+        "flex w-full gap-6 max-w-xl mx-auto",
         {
           "flex-row items-center justify-between": direction === "row",
-          "flex-col": direction === "column",
+          "flex-col items-stretch": direction === "column",
         },
       ])}
       {...rest}

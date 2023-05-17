@@ -21,13 +21,18 @@ export function Tag({
       role="tag"
       className={classNames([
         className,
-        "inline-flex items-center rounded-sm gap-4 px-2 py-1",
+        "inline-flex items-center gap-2 px-2 rounded-sm bg-primary-400 text-white",
+        {
+          "cursor-default": !closable,
+          "cursor-pointer": closable,
+          "pr-0": closable,
+        },
       ])}
       {...rest}
     >
-      <span>{children}</span>
+      <span className="text-sm">{children}</span>
       {closable && (
-        <Button onClick={onClose} size="sm" rounded role="delete-tag">
+        <Button onClick={onClose} size="sm" variant="primary" role="delete-tag">
           <FontAwesomeIcon icon={faMinus} />
         </Button>
       )}

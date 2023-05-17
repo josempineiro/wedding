@@ -4,7 +4,7 @@ import { Field } from "@/components/core/forms/field";
 describe("Field", () => {
   it("renders label and children props", () => {
     render(
-      <Field name="test" label="Test Label">
+      <Field type="text" name="test" label="Test Label">
         Test Children
       </Field>
     );
@@ -16,7 +16,7 @@ describe("Field", () => {
 
   it("renders error prop", () => {
     render(
-      <Field name="test" error="Test Error">
+      <Field name="test" type="text" errors={["Test Error"]}>
         Test Children
       </Field>
     );
@@ -25,7 +25,11 @@ describe("Field", () => {
   });
 
   it("does not render error prop when it is not provided", () => {
-    render(<Field name="test">Test Children</Field>);
+    render(
+      <Field type="text" name="test">
+        Test Children
+      </Field>
+    );
     const errorElement = screen.queryByText(/Test Error/);
     expect(errorElement).not.toBeInTheDocument();
   });
