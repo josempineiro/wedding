@@ -4,7 +4,7 @@ import {
   type JsonFormProps,
 } from "@/components/core/forms/json-form/JsonForm";
 import { Guest, CreateGuestParams } from "@/domain/wedding/entities/Guest";
-import useGuestJsonSchema from "./useGuestJsonSchemaForm";
+import { useGuestJsonSchema } from "./useGuestJsonSchemaForm";
 
 export interface GuestFormProps
   extends Omit<

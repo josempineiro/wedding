@@ -1,15 +1,19 @@
 import { Application } from "@/domain/core/application/Application";
 import { GuestRepository } from "@/domain/wedding/repositories/GuestRepository";
+import { TableRepository } from "@/domain/wedding/repositories/TableRepository";
 import { FindAllGuestUseCase } from "@/domain/wedding/use-cases/FindAllGuestsUseCase";
 import { AddGuestUseCase } from "@/domain/wedding/use-cases/AddGuestUseCase";
 import { DeleteGuestsUseCase } from "@/domain/wedding/use-cases/DeleteGuestsUseCase";
 import { UpdateGuestUseCase } from "@/domain/wedding/use-cases/UpdateGuestUseCase";
 import { TagGuestsUseCase } from "@/domain/wedding/use-cases/TagGuestsUseCase";
+import { CreateTableUseCase } from "@/domain/wedding/use-cases/CreateTableUseCase";
+import { FindAllTablesUseCase } from "@/domain/wedding/use-cases/FindAllTablesUseCase";
 
 export interface IWeddingApplication extends Application {
   infrastructure: {
     adapters: {
       guestRepository: GuestRepository;
+      tableRepository: TableRepository;
     };
   };
   domain: {
@@ -17,25 +21,21 @@ export interface IWeddingApplication extends Application {
       findAllGuests: FindAllGuestUseCase;
       addGuest: AddGuestUseCase;
       deleteGuests: DeleteGuestsUseCase;
+      updateGuest: UpdateGuestUseCase;
       tagGuests: TagGuestsUseCase;
+      createTable: CreateTableUseCase;
+      findAllTables: FindAllTablesUseCase;
     };
   };
 }
 
 export class WeddingApplication implements IWeddingApplication {
-  public domain: {
-    useCases: {
-      findAllGuests: FindAllGuestUseCase;
-      addGuest: AddGuestUseCase;
-      deleteGuests: DeleteGuestsUseCase;
-      updateGuest: UpdateGuestUseCase;
-      tagGuests: TagGuestsUseCase;
-    };
-  };
+  public domain: IWeddingApplication["domain"];
   constructor(
     public infrastructure: {
       adapters: {
         guestRepository: GuestRepository;
+        tableRepository: TableRepository;
       };
     }
   ) {
@@ -55,6 +55,12 @@ export class WeddingApplication implements IWeddingApplication {
         ),
         tagGuests: new TagGuestsUseCase(
           this.infrastructure.adapters.guestRepository
+        ),
+        createTable: new CreateTableUseCase(
+          this.infrastructure.adapters.tableRepository
+        ),
+        findAllTables: new FindAllTablesUseCase(
+          this.infrastructure.adapters.tableRepository
         ),
       },
     };

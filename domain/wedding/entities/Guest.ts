@@ -26,10 +26,10 @@ export interface CreateGuestParams {
 export class Guest extends Entity<GuestId> {
   readonly name: string;
   readonly email: string;
-  weddingId: string;
-  createdAt: Date;
+  readonly weddingId: string;
+  readonly createdAt: Date;
   tags: Array<string>;
-  birthday: Date | undefined;
+  readonly birthday: Date | undefined;
 
   constructor(
     id: GuestId,

@@ -1,14 +1,13 @@
-import { useRef } from "react";
-import { Guest, CreateGuestParams } from "@/domain/wedding/entities/Guest";
+import { CreateGuestParams } from "@/domain/wedding/entities/Guest";
 import {
   FormSchema,
   FormValidateOptions,
 } from "@/domain/core/forms/FormSchema";
 
-function useGuestJsonSchema(includedFields: string[]) {
+export function useGuestJsonSchema(includedFields: string[]) {
   return {
-    id: "test",
-    name: "test",
+    id: "guest",
+    name: "Guest",
     fields: [
       {
         name: "id",
@@ -60,5 +59,3 @@ function useGuestJsonSchema(includedFields: string[]) {
     ].filter((field) => includedFields.includes(field.name)),
   } as FormSchema<CreateGuestParams>;
 }
-
-export default useGuestJsonSchema;

@@ -7,7 +7,7 @@ import { SupabaseRepository } from "@/infrastructure/supabase/repositories/Supab
 
 type GuestRow = Database["public"]["Tables"]["guest"]["Row"];
 
-const fields = `id, name, email, created_at, tags, wedding_id, birthday`;
+const fields = `id, name, email, created_at, tags, wedding_id, birthday, table_id`;
 
 export class SupabaseGuestRepository
   implements GuestRepository, SupabaseRepository<Guest, GuestRow>
@@ -37,6 +37,7 @@ export class SupabaseGuestRepository
       wedding_id: guest.weddingId,
       created_at: guest.createdAt.toISOString(),
       tags: guest.tags.join(","),
+      table_id: null,
       birthday: guest.birthday?.toISOString() ?? null,
     };
   }

@@ -16,6 +16,7 @@ export interface Database {
           email: string | null
           id: string
           name: string
+          table_id: string | null
           tags: string
           wedding_id: string
         }
@@ -25,6 +26,7 @@ export interface Database {
           email?: string | null
           id: string
           name: string
+          table_id?: string | null
           tags?: string
           wedding_id: string
         }
@@ -34,21 +36,22 @@ export interface Database {
           email?: string | null
           id?: string
           name?: string
+          table_id?: string | null
           tags?: string
           wedding_id?: string
         }
       }
-      tables: {
+      table: {
         Row: {
-          id: number
+          id: string
           name: string
         }
         Insert: {
-          id?: number
+          id: string
           name: string
         }
         Update: {
-          id?: number
+          id?: string
           name?: string
         }
       }

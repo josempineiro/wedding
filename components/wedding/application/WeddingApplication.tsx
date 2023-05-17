@@ -2,6 +2,7 @@ import { useMemo } from "react";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { createBrowserSupabaseClient } from "@supabase/auth-helpers-nextjs";
 import { SupabaseGuestRepository } from "@/infrastructure/supabase/adapters/SupabaseGuestRepository";
+import { SupabaseTableRepository } from "@/infrastructure/supabase/adapters/SupabaseTableRepository";
 import { WeddingApplication } from "@/domain/wedding/application/WeddingApplication";
 import { ApplicationProvider } from "@/components/core/application/Application";
 
@@ -26,9 +27,12 @@ export function WeddingApplicationProvider({
 
     const guestRepository = new SupabaseGuestRepository(supabase);
 
+    const tableRepository = new SupabaseTableRepository(supabase);
+
     const weddingApplication = new WeddingApplication({
       adapters: {
         guestRepository,
+        tableRepository,
       },
     });
     return weddingApplication;
