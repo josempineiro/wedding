@@ -4,7 +4,6 @@ import { useAddGuest } from "@/hooks/wedding/use-cases/useAddGuest";
 import { Button } from "@/components/core/buttons/Button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserPlus } from "@fortawesome/free-solid-svg-icons";
-import { FormValues } from "@/domain/core/forms/FormSchema";
 import { GuestForm } from "@/components/wedding/guests/forms/GuestForm";
 
 export function GuestCreationForm() {
@@ -17,18 +16,20 @@ export function GuestCreationForm() {
     },
   });
 
-  const handleSubmit = async (values: FormValues) => {
-    addGuest(
-      Guest.create({
-        name: values.name as string,
-        email: values.email as string,
-        weddingId: "95f2e638-0023-4316-8868-6550f9bf1db3",
-      })
-    );
+  const handleSubmit = async (guest: Guest) => {
+    addGuest(guest);
   };
 
   return (
-    <GuestForm onSubmit={handleSubmit} ref={formRef} editableFields={["name"]}>
+    <GuestForm
+      onSubmit={handleSubmit}
+      ref={formRef}
+      editableFields={["name"]}
+      guest={Guest.create({
+        name: "",
+        weddingId: "95f2e638-0023-4316-8868-6550f9bf1db3",
+      })}
+    >
       <Button disabled={isLoading} type="submit" variant="primary">
         <span>Add</span>
         <FontAwesomeIcon icon={faUserPlus} />
