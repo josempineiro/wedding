@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { createPortal } from "react-dom";
 import { motion } from "framer-motion";
 import { Button } from "@/components/core/buttons/Button";
@@ -35,6 +36,13 @@ const dropIn = {
   },
 };
 
+export function useModal() {
+  const [visible, setVisible] = useState(false);
+  const open = () => setVisible(true);
+  const close = () => setVisible(false);
+  return { visible, open, close };
+}
+
 export function Modal({ children, visible, title, onClose, size }: ModalProps) {
   if (!visible) return null;
   return createPortal(
@@ -58,12 +66,13 @@ export function Modal({ children, visible, title, onClose, size }: ModalProps) {
         {children}
         <Button
           onClick={onClose}
+          rounded
           className="absolute -top-4 -right-4 h-8 w-8 p-1 rounded-full border border-grey-400 text-black bg-white"
         >
           <FontAwesomeIcon className="h-5 w-5" icon={faXmark} />
         </Button>
       </motion.div>
     </Backdrop>,
-    document.body
+    document.getElementById("modal-root") as HTMLElement
   );
 }
