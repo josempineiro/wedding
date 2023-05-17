@@ -142,12 +142,14 @@ function JsonForm<TValues extends Record<string, any>>(
               state,
               validators: {
                 email: (value: string) => {
-                  const test =
-                    /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/.test(
-                      value
-                    );
-                  if (!test) {
-                    return "Email is invalid";
+                  if (value) {
+                    const test =
+                      /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/.test(
+                        value
+                      );
+                    if (!test) {
+                      return "Email is invalid";
+                    }
                   }
                   return true;
                 },
