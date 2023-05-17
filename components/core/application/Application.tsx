@@ -1,6 +1,6 @@
-import { Application } from "@/domain/core/application/Application";
 import { createContext } from "react";
-
+import { Application } from "@/domain/core/application/Application";
+import { NotificationsProvider } from "@/components/core/application/notifications/NotificationsProvider";
 export const ApplicationContext = createContext<Application | undefined>(
   undefined
 );
@@ -14,7 +14,8 @@ export const ApplicationProvider = ({
 }) => {
   return (
     <ApplicationContext.Provider value={application}>
-      {children}
+      <div id="modal-root"></div>
+      <NotificationsProvider>{children}</NotificationsProvider>
     </ApplicationContext.Provider>
   );
 };
