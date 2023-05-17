@@ -1,5 +1,5 @@
-import GuestsList from "@/components/wedding/guests/GuestsList";
-import { CreateGuestFAButton } from "@/components/wedding/guests/CreateGuestFAButton";
+import GuestsList from "@/components/wedding/guests/list/GuestsList";
+import { CreateGuestFAButton } from "@/components/wedding/guests/actions/CreateGuestFAButton";
 import { useGuests } from "@/hooks/wedding/use-cases/useGuests";
 
 export default function Guests() {

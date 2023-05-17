@@ -7,7 +7,7 @@ import { SupabaseRepository } from "@/infrastructure/supabase/repositories/Supab
 
 type GuestRow = Database["public"]["Tables"]["guest"]["Row"];
 
-const fields = `id, name, email, created_at, tags, wedding_id`;
+const fields = `id, name, email, created_at, tags, wedding_id, birthday`;
 
 export class SupabaseGuestRepository
   implements GuestRepository, SupabaseRepository<Guest, GuestRow>
@@ -26,6 +26,7 @@ export class SupabaseGuestRepository
       weddingId: row.wedding_id,
       createdAt: new Date(row.created_at),
       tags: row.tags ? row.tags.split(",") : [],
+      birthday: row.birthday ? new Date(row.birthday) : undefined,
     });
   }
   public fromEntityToRow(guest: Guest): GuestRow {
@@ -36,6 +37,7 @@ export class SupabaseGuestRepository
       wedding_id: guest.weddingId,
       created_at: guest.createdAt.toISOString(),
       tags: guest.tags.join(","),
+      birthday: guest.birthday?.toISOString() ?? null,
     };
   }
 
@@ -46,7 +48,7 @@ export class SupabaseGuestRepository
   public async save(guest: Guest): Promise<Guest> {
     const { data, error } = await this.supabase
       .from("guest")
-      .upsert([this.fromEntityToRow(guest)])
+      .upsert(this.fromEntityToRow(guest))
       .select(fields)
       .single();
     if (error) {

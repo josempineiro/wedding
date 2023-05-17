@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { ListItem } from "@/components/core/content/list/ListItem";
 import { Guest, GuestId } from "@/domain/wedding/entities/Guest";
-import { DeleteGuestButton } from "@/components/wedding/guests/DeleteGuestButton";
-import { UpdateGuestButton } from "@/components/wedding/guests/UpdateGuestButton";
+import { DeleteGuestButton } from "@/components/wedding/guests/actions/DeleteGuestButton";
+import { UpdateGuestButton } from "@/components/wedding/guests/actions/UpdateGuestButton";
 import { Button } from "@/components/core/buttons/Button";
-import { Input } from "@/components/core/forms/Input";
+import { Input } from "@/components/core/forms/input/Input";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faUserMinus,
@@ -16,6 +16,8 @@ import {
   useList,
   useListItem,
 } from "@/components/core/content/list/ListProvider";
+import { Tags } from "@/components/core/forms/tags-field/Tags";
+import { Form } from "@/components/core/forms/form/Form";
 
 export function GuestsListItem({ guest }: { guest: Guest }) {
   const [editedGuest, setEditedGuest] = useState<Guest | undefined>(undefined);
@@ -27,13 +29,11 @@ export function GuestsListItem({ guest }: { guest: Guest }) {
   const handleDiscard = () => {
     setEditedGuest(undefined);
   };
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-  };
+
   return (
     <ListItem className="p-2 flex gap-2 group" key={guest.id} item={guest}>
       {editedGuest ? (
-        <form className="flex flex-row w-full items-center justify-between gap-4">
+        <Form>
           <Input<string>
             type="text"
             name="name"
@@ -41,6 +41,7 @@ export function GuestsListItem({ guest }: { guest: Guest }) {
             onChange={(name) => {
               setEditedGuest(editedGuest.set<Guest>({ name }));
             }}
+            onBlur={handleUpdate}
           />
           <Input<string>
             type="email"
@@ -49,39 +50,31 @@ export function GuestsListItem({ guest }: { guest: Guest }) {
             onChange={(email) => {
               setEditedGuest(editedGuest.set<Guest>({ email }));
             }}
+            onBlur={handleUpdate}
           />
-          <Button size="sm" type="button" onClick={handleDiscard}>
+          <Button size="sm" rounded type="button" onClick={handleDiscard}>
             <FontAwesomeIcon icon={faXmark} />
           </Button>
-          <UpdateGuestButton
-            size="sm"
-            guest={editedGuest}
-            onClick={handleUpdate}
-          >
+          <UpdateGuestButton rounded size="sm" guest={editedGuest}>
             <FontAwesomeIcon icon={faCheck} />
           </UpdateGuestButton>
-        </form>
+        </Form>
       ) : (
         <div className="flex flex-row gap-4 w-full">
           <div className="flex-1 flex items-center justify-between">
             <span>{guest.name}</span>
             <span className="opacity-20">{guest.email}</span>
+
+            <Tags tags={guest.tags} maxTagsToShow={1} />
           </div>
-          <span className="opacity-40 group-hover:opacity-100 flex items-center justify-between">
-            {guest.tags.map((tag) => (
-              <span key={tag} className="px-2 py-1 bg-gray-200 rounded">
-                {tag}
-              </span>
-            ))}
-          </span>
           {list.selection.selectedIds.length === 0 && (
             <>
               <DeleteGuestButton size="sm" rounded guest={guest}>
                 <FontAwesomeIcon icon={faUserMinus} />
               </DeleteGuestButton>
-              <Button size="sm" rounded onClick={handleUpdate}>
+              <UpdateGuestButton size="sm" rounded guest={guest}>
                 <FontAwesomeIcon icon={faPen} />
-              </Button>
+              </UpdateGuestButton>
             </>
           )}
         </div>

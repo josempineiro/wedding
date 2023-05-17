@@ -11,6 +11,7 @@ export interface Database {
     Tables: {
       guest: {
         Row: {
+          birthday: string | null
           created_at: string
           email: string | null
           id: string
@@ -19,6 +20,7 @@ export interface Database {
           wedding_id: string
         }
         Insert: {
+          birthday?: string | null
           created_at?: string
           email?: string | null
           id: string
@@ -27,6 +29,7 @@ export interface Database {
           wedding_id: string
         }
         Update: {
+          birthday?: string | null
           created_at?: string
           email?: string | null
           id?: string

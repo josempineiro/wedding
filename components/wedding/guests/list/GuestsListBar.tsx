@@ -1,10 +1,10 @@
 import { Bar } from "@/components/core/content/bar/Bar";
 import { useList } from "@/components/core/content/list/ListProvider";
 import { Guest, GuestId } from "@/domain/wedding/entities/Guest";
-import { DeleteGuestsButton } from "@/components/wedding/guests/DeleteGuestsButton";
+import { DeleteGuestsButton } from "@/components/wedding/guests/actions/DeleteGuestsButton";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserMinus } from "@fortawesome/free-solid-svg-icons";
-import { GuestTagger } from "@/components/wedding/guests/GuestTagger";
+import { GuestTagger } from "@/components/wedding/guests/forms/GuestTagger";
 
 export function GuestsListBar({ guests }: { guests: Guest[] }) {
   const {

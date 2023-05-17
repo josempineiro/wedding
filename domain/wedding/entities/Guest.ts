@@ -8,25 +8,28 @@ export interface IGuest {
   name: string;
   email: string;
   weddingId: string;
+  birthday?: Date;
   createdAt: Date;
   tags?: Array<string>;
 }
 
-interface CreateGuestParams {
+export interface CreateGuestParams {
   id?: GuestId;
   name: string;
   email?: string;
+  birthday?: Date;
   weddingId: string;
   createdAt?: Date;
   tags?: Array<string>;
 }
 
 export class Guest extends Entity<GuestId> {
-  name: string;
-  email: string;
+  readonly name: string;
+  readonly email: string;
   weddingId: string;
   createdAt: Date;
   tags: Array<string>;
+  birthday: Date | undefined;
 
   constructor(
     id: GuestId,
@@ -34,7 +37,8 @@ export class Guest extends Entity<GuestId> {
     weddingId: string,
     email: string,
     createdAt: Date,
-    tags: Array<string>
+    tags: Array<string>,
+    birthday: Date | undefined
   ) {
     super(id);
     this.name = name;
@@ -42,16 +46,17 @@ export class Guest extends Entity<GuestId> {
     this.weddingId = weddingId;
     this.createdAt = createdAt;
     this.tags = tags;
+    this.birthday = birthday;
   }
   public static create({
     id = uuidv4(),
     name,
     weddingId,
     email = "",
+    birthday = undefined,
     tags = [],
-    createdAt = new Date(),
   }: CreateGuestParams): Guest {
-    return new Guest(id, name, weddingId, email, new Date(), tags);
+    return new Guest(id, name, weddingId, email, new Date(), tags, birthday);
   }
 
   public tag(tag: string): void {
