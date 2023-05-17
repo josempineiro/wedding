@@ -30,7 +30,7 @@ function Input<T = string>(
       role="textbox"
       className={cn([
         className,
-        "text-md font-medium ring-none min-w-0 w-auto bg-transparent outline-none",
+        "text-md font-medium ring-none min-w-0 w-auto bg-transparent outline-none text-black placeholder-gray-400",
       ])}
       onChange={handleChange}
       {...props}

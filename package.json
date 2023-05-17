@@ -8,6 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "test": "jest",
+    "test:update": "jest -u",
     "test:coverage": "jest --coverage",
     "test:watch": "jest --watch",
     "generate:supabase:types": "supabase gen types typescript --project-id 'jmwbmyxrnrwvwzsfexlp' --schema public > supabase/types.ts"

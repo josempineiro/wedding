@@ -1,24 +1,25 @@
 import { Field, FieldType } from "@/domain/core/forms/fields";
-import { FieldTypes } from "@/domain/core/forms/fields/Field";
 
 export type FormErrors = Record<string, string[]>;
 
-export type FormFieldValidator = (
-  value: any
+export type FormFieldValidator<T = any> = (
+  value: T
 ) => Promise<true | string | string[]> | true | string | string[];
 
-export type FormValidatorFunction<T> = (options: T) => FormFieldValidator;
+export type FormValidatorFunction<TParams, TValue> = (
+  params: TParams
+) => FormFieldValidator<TValue>;
 
 export interface FormValidators {
-  minLength: FormValidatorFunction<number>;
-  required: FormFieldValidator;
-  email: FormFieldValidator;
-  isDateBefore: FormValidatorFunction<Date>;
-  isDateBeforeNow: FormFieldValidator;
+  minLength: FormValidatorFunction<number, number>;
+  required: FormFieldValidator<unknown>;
+  email: FormFieldValidator<string>;
+  isDateBefore: FormValidatorFunction<Date, Date>;
+  isDateBeforeNow: FormFieldValidator<Date>;
 }
 
-export type FormValidateOptions = {
-  state: FormState;
+export type FormValidateOptions<TValues extends Record<string, any>> = {
+  state: FormState<TValues>;
   validators: FormValidators;
 };
 
@@ -29,36 +30,34 @@ export type Validation =
   | string[]
   | Array<Promise<true | string | string[]> | true | string | string[]>;
 
-export type FormFieldValidate = (
+export type FormFieldValidate<TValues extends Record<string, any>> = (
   value: FieldType,
-  options: FormValidateOptions
+  options: FormValidateOptions<TValues>
 ) => Validation;
 
-export type FormValidate = (
+export type FormValidate<TValues extends Record<string, any>> = (
   value: FieldType,
   options: {
-    state: FormState;
+    state: FormState<TValues>;
     validators: FormValidators;
   }
 ) => Validation;
 
-export interface FormState {
-  values: FormValues;
+export interface FormState<TValues extends Record<string, any>> {
+  values: TValues;
   errors: FormErrors;
   isSubmitting: boolean;
   isValidating: boolean;
 }
 
-export interface FormValues extends Record<string, FieldType> {}
-
-export interface FormSchema {
+export interface FormSchema<TValues extends Record<string, any>> {
   id: string;
   name: string;
   fields: Array<
     Omit<Field<any>, "value"> & {
       defaultValue?: unknown;
-      validate?: FormFieldValidate;
+      validate?: FormFieldValidate<TValues>;
     }
   >;
-  validate?: FormValidate;
+  validate?: FormValidate<TValues>;
 }

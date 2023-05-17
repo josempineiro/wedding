@@ -1,3 +1,4 @@
+import classNames from "classnames";
 import { Input, type InputProps } from "@/components/core/forms/input/Input";
 import { DateField as CoreDateField } from "@/domain/core/forms/fields/DateField";
 import { Field, type FieldProps } from "@/components/core/forms/field/Field";
@@ -10,7 +11,7 @@ export interface DateFieldProps
     Omit<FieldProps<Date>, "children" | "value" | "type"> {
   inputRef?: React.Ref<HTMLInputElement>;
   onChange: (date: Date, event: React.ChangeEvent<HTMLInputElement>) => void;
-  value: Date;
+  value: Date | undefined;
 }
 
 export function DateField({
@@ -36,7 +37,9 @@ export function DateField({
         ref={inputRef}
         id={name}
         name={name}
-        className="bg-white w-full px-2 py-1"
+        className={classNames("bg-white w-full px-2 py-1", {
+          "text-gray-400": stringValue === "",
+        })}
         type="date"
         onChange={handleChange}
         value={stringValue}

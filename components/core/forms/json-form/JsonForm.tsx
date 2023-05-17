@@ -1,4 +1,4 @@
-import { forwardRef, useReducer } from "react";
+import { forwardRef, useReducer, Reducer, Dispatch } from "react";
 import { TextField } from "@/components/core/forms/text-field";
 import { DateField } from "@/components/core/forms/date-field";
 import { TagsField } from "@/components/core/forms/tags-field";
@@ -6,17 +6,16 @@ import { Button } from "@/components/core/buttons/Button";
 import { Form, type FormProps } from "@/components/core/forms/form/Form";
 import {
   FormSchema,
-  FormValues,
   FormErrors,
   FormState,
 } from "@/domain/core/forms/FormSchema";
 import { FieldType } from "@/domain/core/forms/fields/Field";
 
-export interface JsonFormProps
+export interface JsonFormProps<TValues extends Record<string, any>>
   extends Omit<FormProps, "onSubmit" | "children"> {
-  schema: FormSchema;
-  defaultValues?: FormValues;
-  onSubmit: (values: FormValues) => void;
+  schema: FormSchema<TValues>;
+  defaultValues?: TValues;
+  onSubmit: (values: TValues) => void;
   children?: React.ReactNode;
 }
 
@@ -25,9 +24,9 @@ type SetFormErrorsAction = {
   payload: FormErrors;
 };
 
-type SetFormValuesAction = {
+type SetFormValuesAction<TValues> = {
   type: "SET_FORM_VALUES";
-  payload: FormValues;
+  payload: TValues;
 };
 
 type SetFielValuesAction = {
@@ -38,12 +37,15 @@ type SetFielValuesAction = {
   };
 };
 
-type FormAction =
-  | SetFormValuesAction
+type FormAction<TValues> =
+  | SetFormValuesAction<TValues>
   | SetFormErrorsAction
   | SetFielValuesAction;
 
-const formStateReducer = (state: FormState, action: FormAction): FormState => {
+function formStateReducer<TValues extends Record<string, any>>(
+  state: FormState<TValues>,
+  action: FormAction<TValues>
+): FormState<TValues> {
   switch (action.type) {
     case "SET_FIELD_VALUE":
       return {
@@ -66,11 +68,11 @@ const formStateReducer = (state: FormState, action: FormAction): FormState => {
     default:
       return state;
   }
-};
+}
 
 const defaultValuesByType = {
   text: "",
-  date: new Date(),
+  date: undefined,
   tags: [],
   number: 0,
   textarea: "",
@@ -79,25 +81,37 @@ const defaultValuesByType = {
   password: "",
 };
 
-const getInitialValues = (schema: FormSchema, defaultValues: FormValues) =>
-  schema.fields.reduce(
+function getInitialValues<TValues extends Record<string, any>>(
+  schema: FormSchema<TValues>,
+  defaultValues: TValues
+): TValues {
+  return schema.fields.reduce(
     (acc, { name, defaultValue, type }) => ({
       ...acc,
       [name]: defaultValue ?? defaultValues[name] ?? defaultValuesByType[type],
     }),
-    {}
+    defaultValues
   );
+}
 
-function JsonForm(
-  { onSubmit, schema, defaultValues = {}, children, ...rest }: JsonFormProps,
+function JsonForm<TValues extends Record<string, any>>(
+  {
+    onSubmit,
+    schema,
+    defaultValues = {} as TValues,
+    children,
+    ...rest
+  }: JsonFormProps<TValues>,
   ref?: React.Ref<HTMLFormElement>
 ) {
-  const [state, dispatch] = useReducer(formStateReducer, {
-    values: getInitialValues(schema, defaultValues),
+  const [state, dispatch] = useReducer<
+    Reducer<FormState<TValues>, FormAction<TValues>>
+  >(formStateReducer, {
+    values: getInitialValues<TValues>(schema, defaultValues),
     errors: {},
     isValidating: false,
     isSubmitting: false,
-  });
+  } as FormState<TValues>);
 
   const handleChange = (field: string, value: unknown) => {
     dispatch({
@@ -112,7 +126,7 @@ function JsonForm(
   const handleReset = () => {
     dispatch({
       type: "SET_FORM_VALUES",
-      payload: getInitialValues(schema, defaultValues),
+      payload: getInitialValues<TValues>(schema, defaultValues),
     });
   };
 
@@ -152,13 +166,13 @@ function JsonForm(
                     return true;
                   },
                 isDateBeforeNow: (value: Date) => {
-                  if (value.getTime() > new Date().getTime()) {
+                  if (value && value.getTime() > new Date().getTime()) {
                     return `Date must be before the current date`;
                   }
                   return true;
                 },
                 isDateBefore: (date: Date) => (value: Date) => {
-                  if (value.getTime() > date.getTime()) {
+                  if (value && value.getTime() > date.getTime()) {
                     return `Date must be before ${date.toDateString()}`;
                   }
                   return true;
@@ -189,7 +203,7 @@ function JsonForm(
           payload: errors,
         });
       } else {
-        onSubmit(state.values);
+        onSubmit(state.values as TValues);
       }
     } catch (error) {
       console.log(error);

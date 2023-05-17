@@ -51,7 +51,7 @@ export function Field<T extends FieldType>({
         htmlFor={name}
         aria-labelledby={name}
         className={classNames([
-          "text-xs text-gray-500 px-2 font-bold tracking-wider leading-none",
+          "text-xs text-gray-500 px-2 font-bold tracking-wider leading-none uppercase",
         ])}
       >
         {label}

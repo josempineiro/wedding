@@ -5,7 +5,7 @@ describe("Field", () => {
   it("renders label and children props", () => {
     render(
       <Field type="text" name="test" label="Test Label">
-        Test Children
+        <span>Test Children</span>
       </Field>
     );
     const labelElement = screen.getByText(/Test Label/);
@@ -17,7 +17,7 @@ describe("Field", () => {
   it("renders error prop", () => {
     render(
       <Field name="test" type="text" errors={["Test Error"]}>
-        Test Children
+        <span>Test Children</span>
       </Field>
     );
     const errorElement = screen.getByText(/Test Error/);
@@ -27,7 +27,7 @@ describe("Field", () => {
   it("does not render error prop when it is not provided", () => {
     render(
       <Field type="text" name="test">
-        Test Children
+        <span>Test Children</span>
       </Field>
     );
     const errorElement = screen.queryByText(/Test Error/);
