@@ -10,9 +10,9 @@ export function CreateGuestFAButton() {
   return (
     <>
       <FAButton onClick={modal.open}>
-        <FontAwesomeIcon icon={faUserPlus} />
+        <FontAwesomeIcon className="h-4 w-4" icon={faUserPlus} />
       </FAButton>
-      <Modal visible={modal.visible} onClose={modal.close}>
+      <Modal visible={modal.visible} closable onClose={modal.close}>
         <GuestCreationForm />
       </Modal>
     </>

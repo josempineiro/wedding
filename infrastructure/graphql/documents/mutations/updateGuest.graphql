@@ -1,0 +1,9 @@
+#import 'infrastructure/graphql/documents/fragments/guest.graphql'
+
+mutation updateGuest($id: UUID!, $guest: guestUpdateInput!) {
+  updateguestCollection(filter: { id: { eq: $id } }, set: $guest) {
+    records {
+      ...Guest
+    }
+  }
+}

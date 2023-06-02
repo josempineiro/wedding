@@ -1,20 +1,15 @@
 import Head from "next/head";
-import { useState } from "react";
 import type { AppProps } from "next/app";
-import { createBrowserSupabaseClient } from "@supabase/auth-helpers-nextjs";
 import { SessionContextProvider } from "@supabase/auth-helpers-react";
 import Layout from "@/components/Layout";
 import { WeddingApplicationProvider } from "@/components/wedding/application/WeddingApplication";
 import { Breadcrumbs } from "@/components/core/application/Breadcrumbs";
 import "@/styles/globals.css";
+import { client } from "@/supabase/client";
+import { SupabaseSessionProvider } from "@/infrastructure/supabase/authentication/SessionContext";
+import { WeddingHeader } from "@/components/wedding/application/WeddingHeader";
 
 function App({ Component, pageProps }: AppProps) {
-  const [supabase] = useState(() =>
-    createBrowserSupabaseClient({
-      supabaseUrl: process.env.NEXT_PUBLIC_SUPABASE_URL,
-      supabaseKey: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
-    })
-  );
   return (
     <>
       <Head>
@@ -28,15 +23,18 @@ function App({ Component, pageProps }: AppProps) {
         />
       </Head>
       <SessionContextProvider
-        supabaseClient={supabase}
+        supabaseClient={client}
         initialSession={pageProps.initialSession}
       >
-        <WeddingApplicationProvider>
-          <Layout>
-            <Breadcrumbs />
-            <Component {...pageProps} />
-          </Layout>
-        </WeddingApplicationProvider>
+        <SupabaseSessionProvider>
+          <WeddingApplicationProvider>
+            <Layout>
+              <WeddingHeader />
+              <Breadcrumbs />
+              <Component {...pageProps} />
+            </Layout>
+          </WeddingApplicationProvider>
+        </SupabaseSessionProvider>
       </SessionContextProvider>
     </>
   );

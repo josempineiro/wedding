@@ -1,0 +1,5 @@
+mutation deleteGuest($guestId: UUID!) {
+  deleteFromguestCollection(filter: { id: { eq: $guestId } }, atMost: 1) {
+    affectedCount
+  }
+}

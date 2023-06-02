@@ -1,0 +1,18 @@
+#import 'infrastructure/graphql/documents/fragments/wedding.graphql'
+
+query weddings($first: Int, $after: Cursor) {
+  weddingCollection(first: $first, after: $after) {
+    edges {
+      node {
+        ...Wedding
+      }
+      cursor
+    }
+    pageInfo {
+      startCursor
+      endCursor
+      hasNextPage
+      hasPreviousPage
+    }
+  }
+}

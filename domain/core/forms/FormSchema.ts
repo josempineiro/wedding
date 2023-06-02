@@ -16,6 +16,7 @@ export interface FormValidators {
   email: FormFieldValidator<string>;
   isDateBefore: FormValidatorFunction<Date, Date>;
   isDateBeforeNow: FormFieldValidator<Date>;
+  isDateAfterNow: FormFieldValidator<Date>;
 }
 
 export type FormValidateOptions<TValues extends Record<string, any>> = {

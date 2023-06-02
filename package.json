@@ -12,9 +12,12 @@
     "test:coverage": "jest --coverage",
     "test:watch": "jest --watch",
     "verify": "npm run lint && npm run test && npm run build",
-    "generate:supabase:types": "supabase gen types typescript --project-id 'jmwbmyxrnrwvwzsfexlp' --schema public > supabase/types.ts"
+    "generate:supabase:types": "supabase gen types typescript --project-id 'jmwbmyxrnrwvwzsfexlp' --schema public > supabase/types.ts",
+    "generate:graphql": "graphql-codegen --config codegen.ts",
+    "generate:all": "npm run generate:supabase:types && npm run generate:graphql"
   },
   "dependencies": {
+    "@apollo/client": "^3.7.14",
     "@fortawesome/fontawesome-svg-core": "^6.4.0",
     "@fortawesome/free-regular-svg-icons": "^6.4.0",
     "@fortawesome/free-solid-svg-icons": "^6.4.0",
@@ -22,7 +25,8 @@
     "@supabase/auth-helpers-nextjs": "^0.6.1",
     "@supabase/auth-helpers-react": "^0.3.1",
     "@supabase/auth-ui-react": "^0.3.6",
-    "@supabase/supabase-js": "^2.21.0",
+    "@supabase/supabase-js": "^2.23.0",
+    "@types/lodash": "^4.14.195",
     "@types/node": "18.16.3",
     "@types/react": "18.2.0",
     "@types/react-dom": "18.2.1",
@@ -31,6 +35,8 @@
     "eslint": "8.39.0",
     "eslint-config-next": "13.3.4",
     "framer-motion": "^10.12.8",
+    "graphql": "^16.6.0",
+    "lodash": "^4.17.21",
     "next": "13.3.4",
     "postcss": "8.4.23",
     "react": "18.2.0",
@@ -41,6 +47,10 @@
     "uuid": "^9.0.0"
   },
   "devDependencies": {
+    "@graphql-codegen/cli": "4.0.0",
+    "@graphql-codegen/client-preset": "4.0.0",
+    "@graphql-codegen/introspection": "4.0.0",
+    "@graphql-codegen/typescript-react-apollo": "^3.3.7",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^14.0.0",
     "@types/jest": "^29.5.1",

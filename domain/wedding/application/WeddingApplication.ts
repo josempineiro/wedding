@@ -8,6 +8,7 @@ import { UpdateGuestUseCase } from "@/domain/wedding/use-cases/UpdateGuestUseCas
 import { TagGuestsUseCase } from "@/domain/wedding/use-cases/TagGuestsUseCase";
 import { CreateTableUseCase } from "@/domain/wedding/use-cases/CreateTableUseCase";
 import { FindAllTablesUseCase } from "@/domain/wedding/use-cases/FindAllTablesUseCase";
+import { AssignGuestToTableUseCase } from "@/domain/wedding/use-cases/AssignGuestToTableUseCase";
 
 export interface IWeddingApplication extends Application {
   infrastructure: {
@@ -25,6 +26,7 @@ export interface IWeddingApplication extends Application {
       tagGuests: TagGuestsUseCase;
       createTable: CreateTableUseCase;
       findAllTables: FindAllTablesUseCase;
+      assignGuestToTable: AssignGuestToTableUseCase;
     };
   };
 }
@@ -61,6 +63,9 @@ export class WeddingApplication implements IWeddingApplication {
         ),
         findAllTables: new FindAllTablesUseCase(
           this.infrastructure.adapters.tableRepository
+        ),
+        assignGuestToTable: new AssignGuestToTableUseCase(
+          this.infrastructure.adapters.guestRepository
         ),
       },
     };

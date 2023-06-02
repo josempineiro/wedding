@@ -1,0 +1,9 @@
+#import 'infrastructure/graphql/documents/fragments/table.graphql'
+
+mutation createTable($objects: [tableInsertInput!]!) {
+  insertIntotableCollection(objects: $objects) {
+    records {
+      ...Table
+    }
+  }
+}

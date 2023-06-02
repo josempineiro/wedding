@@ -1,0 +1,18 @@
+#import 'infrastructure/graphql/documents/fragments/table.graphql'
+
+query tables($first: Int, $after: Cursor) {
+  tableCollection(first: $first, after: $after) {
+    edges {
+      node {
+        ...Table
+      }
+      cursor
+    }
+    pageInfo {
+      startCursor
+      endCursor
+      hasNextPage
+      hasPreviousPage
+    }
+  }
+}

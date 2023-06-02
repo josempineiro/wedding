@@ -1,48 +1,29 @@
-import { useMemo } from "react";
-import { QueryClient, QueryClientProvider } from "react-query";
-import { createBrowserSupabaseClient } from "@supabase/auth-helpers-nextjs";
-import { SupabaseGuestRepository } from "@/infrastructure/supabase/adapters/SupabaseGuestRepository";
-import { SupabaseTableRepository } from "@/infrastructure/supabase/adapters/SupabaseTableRepository";
-import { WeddingApplication } from "@/domain/wedding/application/WeddingApplication";
-import { ApplicationProvider } from "@/components/core/application/Application";
+import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
+import { WeddingProvider } from "@/components/wedding/weddings/WeddingProvider";
+import { useSession } from "@/infrastructure/supabase/authentication/SessionContext";
+import { Session } from "@supabase/supabase-js";
 
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      refetchOnWindowFocus: false, // default: true
+const createSupabaseApolloClient = (session: Session) =>
+  new ApolloClient({
+    uri: `${process.env.NEXT_PUBLIC_SUPABASE_URL}/graphql/v1`,
+    cache: new InMemoryCache(),
+    headers: {
+      "content-type": "application/json",
+      Authorization: `Bearer ${session.access_token}`,
+      apikey: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY as string,
     },
-  },
-});
+  });
 
 export function WeddingApplicationProvider({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const weddingApplication = useMemo(() => {
-    const supabase = createBrowserSupabaseClient({
-      supabaseUrl: process.env.NEXT_PUBLIC_SUPABASE_URL,
-      supabaseKey: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
-    });
-
-    const guestRepository = new SupabaseGuestRepository(supabase);
-
-    const tableRepository = new SupabaseTableRepository(supabase);
-
-    const weddingApplication = new WeddingApplication({
-      adapters: {
-        guestRepository,
-        tableRepository,
-      },
-    });
-    return weddingApplication;
-  }, []);
+  const session = useSession();
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <ApplicationProvider application={weddingApplication}>
-        {children}
-      </ApplicationProvider>
-    </QueryClientProvider>
+    <ApolloProvider client={createSupabaseApolloClient(session)}>
+      <WeddingProvider>{children}</WeddingProvider>
+    </ApolloProvider>
   );
 }

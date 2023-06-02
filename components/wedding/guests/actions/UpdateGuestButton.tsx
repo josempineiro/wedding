@@ -19,7 +19,7 @@ export const UpdateGuestButton = ({
       <Button type="button" onClick={modal.open} {...rest}>
         {children}
       </Button>
-      <Modal visible={modal.visible} onClose={modal.close}>
+      <Modal visible={modal.visible} closable onClose={modal.close}>
         <GuestUpdateForm onSuccess={modal.close} guest={guest} />
       </Modal>
     </>

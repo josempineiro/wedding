@@ -10,9 +10,9 @@ export function CreateTableFAButton() {
   return (
     <>
       <FAButton onClick={modal.open}>
-        <FontAwesomeIcon icon={faPlus} />
+        <FontAwesomeIcon className="h-4 w-4" icon={faPlus} />
       </FAButton>
-      <Modal visible={modal.visible} onClose={modal.close}>
+      <Modal visible={modal.visible} closable onClose={modal.close}>
         <TableCreationForm />
       </Modal>
     </>

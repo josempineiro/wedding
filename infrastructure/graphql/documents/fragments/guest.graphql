@@ -1,0 +1,18 @@
+fragment Guest on guest {
+  id
+  name
+  email
+  tags
+  birthday
+  created_at
+  wedding {
+    id
+    name
+  }
+  table {
+    id
+    name
+    sorted_diner_ids
+  }
+  table_position
+}

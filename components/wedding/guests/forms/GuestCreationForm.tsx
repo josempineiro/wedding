@@ -5,11 +5,13 @@ import { Button } from "@/components/core/buttons/Button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserPlus } from "@fortawesome/free-solid-svg-icons";
 import { GuestForm } from "@/components/wedding/guests/forms/GuestForm";
+import { useWeddingContext } from "@/components/wedding/weddings/WeddingProvider";
 
 export function GuestCreationForm() {
   const formRef = useRef<HTMLFormElement>(null);
-  const { mutate: addGuest, isLoading } = useAddGuest({
-    onSuccess: () => {
+  const { wedding } = useWeddingContext();
+  const [addGuest, { loading }] = useAddGuest({
+    onCompleted: () => {
       if (formRef.current) {
         formRef.current.reset();
       }
@@ -27,12 +29,12 @@ export function GuestCreationForm() {
       editableFields={["name"]}
       guest={Guest.create({
         name: "",
-        weddingId: "95f2e638-0023-4316-8868-6550f9bf1db3",
+        weddingId: wedding.id,
       })}
     >
-      <Button disabled={isLoading} type="submit" variant="primary">
+      <Button disabled={loading} type="submit" variant="primary">
         <span>Add</span>
-        <FontAwesomeIcon icon={faUserPlus} />
+        <FontAwesomeIcon className="h-4 w-4" icon={faUserPlus} />
       </Button>
     </GuestForm>
   );

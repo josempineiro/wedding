@@ -33,7 +33,7 @@ export function Tag({
       <span className="text-sm">{children}</span>
       {closable && (
         <Button onClick={onClose} size="sm" variant="primary" role="delete-tag">
-          <FontAwesomeIcon icon={faMinus} />
+          <FontAwesomeIcon className="h-4 w-4" icon={faMinus} />
         </Button>
       )}
     </div>

@@ -1,0 +1,18 @@
+#import 'infrastructure/graphql/documents/fragments/guest.graphql'
+
+query guests($first: Int, $after: Cursor) {
+  guestCollection(first: $first, after: $after) {
+    edges {
+      node {
+        ...Guest
+      }
+      cursor
+    }
+    pageInfo {
+      startCursor
+      endCursor
+      hasNextPage
+      hasPreviousPage
+    }
+  }
+}

@@ -39,17 +39,19 @@ export const useMutationUseCase = <TVariables, TData, TOptimisticData>({
       if (options.onMutate) {
         options.onMutate(variables);
       }
-      const previousData = queryClient.getQueryData<TOptimisticData>(
-        useCase.getId(variables)
-      );
       if (useCase.optimisticExecute) {
+        const previousData = queryClient.getQueryData<TOptimisticData>(
+          useCase.getId(variables)
+        );
         queryClient.setQueryData(
           useCase.getId(variables),
           useCase.optimisticExecute(variables, previousData)
         );
-        return previousData;
+        return queryClient.getQueryData<TOptimisticData>(
+          useCase.getId(variables)
+        );
       }
-      return previousData;
+      return undefined;
     },
     onError: (error, variables, previousData) => {
       if (options.onError) {

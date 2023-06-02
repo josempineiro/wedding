@@ -8,8 +8,8 @@ import { TableForm } from "@/components/wedding/tables/forms/TableForm";
 
 export function TableCreationForm() {
   const formRef = useRef<HTMLFormElement>(null);
-  const { mutate: addTable, isLoading } = useCreateTable({
-    onSuccess: () => {
+  const [addTable, { loading }] = useCreateTable({
+    onCompleted: () => {
       if (formRef.current) {
         formRef.current.reset();
       }
@@ -29,9 +29,9 @@ export function TableCreationForm() {
         name: "",
       })}
     >
-      <Button disabled={isLoading} type="submit" variant="primary">
+      <Button disabled={loading} type="submit" variant="primary">
         <span>Add</span>
-        <FontAwesomeIcon icon={faPlus} />
+        <FontAwesomeIcon className="h-4 w-4" icon={faPlus} />
       </Button>
     </TableForm>
   );

@@ -30,7 +30,7 @@ export abstract class Entity<TId = string> implements IEntity<TId> {
   }
 
   public clone<T extends Entity<TId>>(): T {
-    return Object.assign(Object.create(this), this) as T;
+    return Object.assign(Object.create(Object.getPrototypeOf(this)), this);
   }
 
   public toJson(): Record<string, any> {

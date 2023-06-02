@@ -1,0 +1,9 @@
+#import 'infrastructure/graphql/documents/fragments/wedding.graphql'
+
+mutation createWedding($objects: [weddingInsertInput!]!) {
+  insertIntoweddingCollection(objects: $objects) {
+    records {
+      ...Wedding
+    }
+  }
+}

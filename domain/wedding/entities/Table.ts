@@ -1,6 +1,6 @@
 import { v4 as uuidv4 } from "uuid";
 import { Entity } from "@/domain/core/entities/Entity";
-import { Guest } from "@/domain/wedding/entities/Guest";
+import { Guest, GuestId } from "@/domain/wedding/entities/Guest";
 
 export type TableId = string;
 export interface CreateTableParams {
@@ -11,7 +11,7 @@ export interface CreateTableParams {
 }
 export class Table extends Entity<TableId> {
   readonly name: string;
-  readonly guests: Guest[];
+  guests: Guest[];
   readonly host?: Guest;
 
   constructor(id: string, name: string, guests: Guest[], host?: Guest) {
@@ -30,15 +30,21 @@ export class Table extends Entity<TableId> {
     return new Table(id, name, guests, host);
   }
 
+  public sortGuests(ids: GuestId[]): void {
+    this.guests = this.guests.sort((a, b) => {
+      if (ids.indexOf(a.id) < ids.indexOf(b.id)) {
+        return -1;
+      }
+      if (ids.indexOf(a.id) > ids.indexOf(b.id)) {
+        return 1;
+      }
+      return 0;
+    });
+  }
+  public removeGuest(guest: Guest): void {
+    this.guests.splice(this.guests.indexOf(guest), 1);
+  }
   public addGuest(guest: Guest): void {
     this.guests.push(guest);
-  }
-
-  public getGuests(): Guest[] {
-    return this.guests;
-  }
-
-  public getHost(): Guest | undefined {
-    return this.host;
   }
 }

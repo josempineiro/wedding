@@ -35,9 +35,8 @@ export function GuestsListBar({ guests }: { guests: Guest[] }) {
         >
           {selectedGuests.length}
         </div>
-        <GuestTagger guests={selectedGuests} />
         <DeleteGuestsButton guests={selectedGuests}>
-          <FontAwesomeIcon icon={faUserMinus} />
+          <FontAwesomeIcon className="h-4 w-4" icon={faUserMinus} />
         </DeleteGuestsButton>
       </div>
     </Bar>

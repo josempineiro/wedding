@@ -23,21 +23,26 @@ export const Button = ({
       role="button"
       className={classNames([
         className,
-        "flex flex-row gap-4 justify-center items-center transition-colors duration-200 ease-in-out",
+        "flex flex-row gap-4 justify-center items-center transition-colors duration-200 ease-in-out font-bold tracking-wide",
+
         {
           "bg-primary-400 hover:bg-primary-500 text-white ":
             variant === "primary",
           "bg-secondary-400 hover:bg-secondary-500 text-white ":
             variant === "secondary",
           "bg-gray-200 hover:bg-gray-300 text-gray-700 ": variant === "default",
-          "px-2 py-1 text-xs": size === "xs",
-          "px-3 py-1.5 text-xs": size === "sm",
-          "px-4 py-2 text-sm": size === "md",
-          "px-6 py-3 text-md": size === "lg",
-          "px-1 h-4 w-4": size === "xs" && rounded,
-          "px-1.5 h-5 w-5": size === "sm" && rounded,
-          "px-2 h-8 w-8": size === "md" && rounded,
-          "px-3 h-12 w-12": size === "lg" && rounded,
+          "h-4 text-xs": size === "xs",
+          "h-8 text-xs": size === "sm",
+          "h-10 text-sm": size === "md",
+          "h-12 text-md": size === "lg",
+          "px-2": size === "xs" && !rounded,
+          "px-3": size === "sm" && !rounded,
+          "px-4": size === "md" && !rounded,
+          "px-5": size === "lg" && !rounded,
+          "p-0 w-4": size === "xs" && rounded,
+          "p-0 w-8": size === "sm" && rounded,
+          "p-0 w-10": size === "md" && rounded,
+          "p-0 w-12": size === "lg" && rounded,
           "rounded-full ": rounded,
           "rounded-sm": !rounded,
         },

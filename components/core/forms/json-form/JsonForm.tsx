@@ -173,9 +173,9 @@ function JsonForm<TValues extends Record<string, any>>(
                   }
                   return true;
                 },
-                isDateBefore: (date: Date) => (value: Date) => {
-                  if (value && value.getTime() > date.getTime()) {
-                    return `Date must be before ${date.toDateString()}`;
+                isDateAfterNow: (value: Date) => {
+                  if (value && value.getTime() < new Date().getTime()) {
+                    return `Date must be after the current date`;
                   }
                   return true;
                 },

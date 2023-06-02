@@ -25,10 +25,10 @@ export function TablesListItem({ table }: { table: Table }) {
           <>
             {/*
             <DeleteTableButton size="sm" rounded table={table}>
-              <FontAwesomeIcon icon={faUserMinus} />
+              <FontAwesomeIcon className="h-4 w-4" icon={faUserMinus} />
             </DeleteTableButton>
             <UpdateTableButton size="sm" rounded table={table}>
-              <FontAwesomeIcon icon={faPen} />
+              <FontAwesomeIcon className="h-4 w-4" icon={faPen} />
             </UpdateTableButton>
             */}
           </>

@@ -3,13 +3,15 @@ import { CreateGuestFAButton } from "@/components/wedding/guests/actions/CreateG
 import { useGuests } from "@/hooks/wedding/use-cases/useGuests";
 
 export default function Guests() {
-  const { data, isLoading } = useGuests();
+  const { data, loading } = useGuests();
 
   return (
-    <main className={`flex flex-col items-center justify-between p-2`}>
+    <main
+      className={`container mx-auto flex flex-col items-center justify-between p-2`}
+    >
       <h1>Guests</h1>
       <CreateGuestFAButton />
-      {isLoading && <p>Loading ...</p>}
+      {loading && <p>Loading ...</p>}
       {data && (
         <>
           <div>

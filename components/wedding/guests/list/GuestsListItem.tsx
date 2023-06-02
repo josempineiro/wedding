@@ -53,10 +53,10 @@ export function GuestsListItem({ guest }: { guest: Guest }) {
             onBlur={handleUpdate}
           />
           <Button size="sm" rounded type="button" onClick={handleDiscard}>
-            <FontAwesomeIcon icon={faXmark} />
+            <FontAwesomeIcon className="h-4 w-4" icon={faXmark} />
           </Button>
           <UpdateGuestButton rounded size="sm" guest={editedGuest}>
-            <FontAwesomeIcon icon={faCheck} />
+            <FontAwesomeIcon className="h-4 w-4" icon={faCheck} />
           </UpdateGuestButton>
         </Form>
       ) : (
@@ -70,10 +70,10 @@ export function GuestsListItem({ guest }: { guest: Guest }) {
           {list.selection.selectedIds.length === 0 && (
             <>
               <DeleteGuestButton size="sm" rounded guest={guest}>
-                <FontAwesomeIcon icon={faUserMinus} />
+                <FontAwesomeIcon className="h-4 w-4" icon={faUserMinus} />
               </DeleteGuestButton>
               <UpdateGuestButton size="sm" rounded guest={guest}>
-                <FontAwesomeIcon icon={faPen} />
+                <FontAwesomeIcon className="h-4 w-4" icon={faPen} />
               </UpdateGuestButton>
             </>
           )}

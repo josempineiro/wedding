@@ -17,6 +17,7 @@ export interface Database {
           id: string
           name: string
           table_id: string | null
+          table_position: number | null
           tags: string
           wedding_id: string
         }
@@ -27,6 +28,7 @@ export interface Database {
           id: string
           name: string
           table_id?: string | null
+          table_position?: number | null
           tags?: string
           wedding_id: string
         }
@@ -37,6 +39,7 @@ export interface Database {
           id?: string
           name?: string
           table_id?: string | null
+          table_position?: number | null
           tags?: string
           wedding_id?: string
         }
@@ -45,34 +48,43 @@ export interface Database {
         Row: {
           id: string
           name: string
+          sorted_diner_ids: string[] | null
         }
         Insert: {
-          id: string
+          id?: string
           name: string
+          sorted_diner_ids?: string[] | null
         }
         Update: {
           id?: string
           name?: string
+          sorted_diner_ids?: string[] | null
         }
       }
       wedding: {
         Row: {
           created_at: string
+          datetime: string
           id: string
           name: string
           updated_at: string
+          user_id: string | null
         }
         Insert: {
           created_at?: string
+          datetime?: string
           id?: string
           name: string
           updated_at?: string
+          user_id?: string | null
         }
         Update: {
           created_at?: string
+          datetime?: string
           id?: string
           name?: string
           updated_at?: string
+          user_id?: string | null
         }
       }
     }

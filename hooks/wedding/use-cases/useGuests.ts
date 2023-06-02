@@ -1,10 +1,23 @@
-import { Guest } from "@/domain/wedding/entities/Guest";
-import { useQueryUseCase } from "@/hooks/core/use-cases/useQueryUseCase";
-import { useWeddingApplication } from "@/hooks/wedding/application/useWeddingApplication";
+import * as Apollo from "@apollo/client";
+import {
+  useGuestsQuery as useGuestsApolloQuery,
+  GuestFragment,
+  GuestsQueryVariables,
+  GuestsQuery,
+} from "@/infrastructure/graphql/apollo";
+import { useWeddingMappers } from "@/hooks/wedding/mappers/useWeddingMappers";
 
-export const useGuests = () => {
-  const weddingApplication = useWeddingApplication();
-  return useQueryUseCase<void, Array<Guest>>({
-    useCase: weddingApplication.domain.useCases.findAllGuests,
-  });
+export const useGuests = (
+  options?: Apollo.QueryHookOptions<GuestsQuery, GuestsQueryVariables>
+) => {
+  const { data, loading, error } = useGuestsApolloQuery(options);
+
+  const { guestMapper } = useWeddingMappers();
+  return {
+    data: data?.guestCollection?.edges.map(
+      ({ node }: { node: GuestFragment }) => guestMapper.map(node)
+    ),
+    loading,
+    error,
+  };
 };

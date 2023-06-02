@@ -1,0 +1,9 @@
+#import 'infrastructure/graphql/documents/fragments/table.graphql'
+
+mutation updateTable($id: UUID!, $table: tableUpdateInput!) {
+  updatetableCollection(filter: { id: { eq: $id } }, set: $table) {
+    records {
+      ...Table
+    }
+  }
+}

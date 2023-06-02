@@ -22,8 +22,8 @@ export function GuestUpdateForm({
 }: GuestUpdateFormProps) {
   const formRef = useRef<HTMLFormElement>(null);
 
-  const { mutate: updateGuest, isLoading } = useUpdateGuest({
-    onSuccess: () => {
+  const [updateGuest, { loading }] = useUpdateGuest({
+    onCompleted: () => {
       if (formRef.current) {
         formRef.current.reset();
       }
@@ -36,9 +36,9 @@ export function GuestUpdateForm({
   };
   return (
     <GuestForm onSubmit={handleSubmit} guest={guest} ref={formRef} {...rest}>
-      <Button disabled={isLoading} type="submit" variant="primary">
+      <Button disabled={loading} type="submit" variant="primary">
         <span>Update</span>
-        <FontAwesomeIcon icon={faFloppyDisk} />
+        <FontAwesomeIcon className="h-4 w-4" icon={faFloppyDisk} />
       </Button>
     </GuestForm>
   );

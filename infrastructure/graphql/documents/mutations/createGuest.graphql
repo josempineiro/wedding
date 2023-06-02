@@ -1,0 +1,9 @@
+#import 'infrastructure/graphql/documents/fragments/guest.graphql'
+
+mutation createGuest($objects: [guestInsertInput!]!) {
+  insertIntoguestCollection(objects: $objects) {
+    records {
+      ...Guest
+    }
+  }
+}

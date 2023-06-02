@@ -1,14 +1,36 @@
+import * as Apollo from "@apollo/client";
 import { Guest } from "@/domain/wedding/entities/Guest";
-import { useMutationUseCase } from "@/hooks/core/use-cases/useMutationUseCase";
-import { useWeddingApplication } from "@/hooks/wedding/application/useWeddingApplication";
-import { UseMutationUseCaseOptions } from "@/hooks/core/use-cases/useMutationUseCase";
+import {
+  useUpdateGuestMutation,
+  UpdateGuestMutation,
+  UpdateGuestMutationVariables,
+} from "@/infrastructure/graphql/apollo";
+import { useWeddingMappers } from "@/hooks/wedding/mappers/useWeddingMappers";
 
 export function useUpdateGuest(
-  options?: UseMutationUseCaseOptions<Guest, Guest, Array<Guest>>
-) {
-  const weddingApplication = useWeddingApplication();
-  return useMutationUseCase<Guest, Guest, Array<Guest>>({
-    useCase: weddingApplication.domain.useCases.updateGuest,
-    options,
-  });
+  options?: Apollo.MutationHookOptions<
+    UpdateGuestMutation,
+    UpdateGuestMutationVariables
+  >
+): [
+  (guest: Guest) => Promise<Guest | undefined>,
+  ReturnType<typeof useUpdateGuestMutation>[1]
+] {
+  const { guestMapper, guestInputMapper } = useWeddingMappers();
+  const [updateGuest, mutation] = useUpdateGuestMutation(options);
+  return [
+    async (guest) => {
+      const { data } = await updateGuest({
+        variables: {
+          id: guest.id,
+          guest: guestInputMapper.map(guest),
+        },
+      });
+      const updatedGuest = data?.updateguestCollection?.records?.[0];
+      if (updatedGuest) {
+        return guestMapper.map(updatedGuest);
+      }
+    },
+    mutation,
+  ];
 }
